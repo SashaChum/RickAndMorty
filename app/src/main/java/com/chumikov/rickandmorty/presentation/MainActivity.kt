@@ -1,14 +1,13 @@
-package com.chumikov.rickandmorty
+package com.chumikov.rickandmorty.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.chumikov.rickandmorty.domain.RickAndMortyApi
+import com.chumikov.rickandmorty.R
+import com.chumikov.rickandmorty.data.network.RickAndMortyApi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import okhttp3.Dispatcher
-import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

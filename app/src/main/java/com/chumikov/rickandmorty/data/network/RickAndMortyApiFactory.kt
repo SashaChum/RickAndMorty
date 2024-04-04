@@ -1,6 +1,5 @@
-package com.chumikov.rickandmorty.data.network.model
+package com.chumikov.rickandmorty.data.network
 
-import com.chumikov.rickandmorty.data.network.RickAndMortyApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

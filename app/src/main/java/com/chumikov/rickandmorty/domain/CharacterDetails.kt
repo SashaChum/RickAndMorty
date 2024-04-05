@@ -7,5 +7,10 @@ data class CharacterDetails (
     val species: String,
     val status: String,
     val location: String,
-    val episodes: List<String>  // Это поле вообще нужно?
-)
+    val episodes: List<String>
+) {
+    fun some() {
+        TODO("Нужно ли в этом классе поле episodes?")
+    }
+}
+

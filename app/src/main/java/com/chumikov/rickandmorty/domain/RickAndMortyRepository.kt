@@ -1,12 +1,11 @@
 package com.chumikov.rickandmorty.domain
 
-import androidx.lifecycle.LiveData
 
 interface RickAndMortyRepository {
 
-    fun getCharacterList(): LiveData<List<Character>>
+    fun getCharacterList(): List<Character>
 
-    fun getCharacterDetails(id: Int): LiveData<CharacterDetails>
+    fun getCharacterDetails(id: Int): CharacterDetails
 
-    fun getCharacterEpisodes(list: List<Int>): LiveData<List<Episode>>
+    fun getCharacterEpisodes(list: List<Int>): List<Episode>
 }

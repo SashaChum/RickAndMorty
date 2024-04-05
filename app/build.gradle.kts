@@ -27,11 +27,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 }
 
@@ -42,6 +42,12 @@ dependencies {
 
 //    implementation("com.squareup.okhttp3:okhttp:4.7.2")
 //    implementation("com.squareup.okhttp3:logging-interceptor:4.7.2")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.5")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.5")
+
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.4")
+
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

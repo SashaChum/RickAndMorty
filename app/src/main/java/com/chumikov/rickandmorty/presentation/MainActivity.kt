@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.chumikov.rickandmorty.R
-import com.chumikov.rickandmorty.data.network.RickAndMortyApiFactory.rickAndMortyApi
+import com.chumikov.rickandmorty.data.repository.RickAndMortyRepositoryImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,9 +16,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         CoroutineScope(Dispatchers.IO).launch {
-            val allCharacters = rickAndMortyApi.getAllCharacters()
-            val specificCharacter = rickAndMortyApi.getCharacterDetails(2)
-            val episodeList = rickAndMortyApi.getEpisodeList(listOf(1, 2, 3))
+            val repo = RickAndMortyRepositoryImpl()
+
+            val allCharacters = repo.getCharacterList()
+            val specificCharacter = repo.getCharacterDetails(2)
+            val episodeList = repo.getCharacterEpisodes(listOf(1, 2, 3))
+
             Log.d("MainActivity", "$allCharacters")
             Log.d("MainActivity", "$specificCharacter")
             Log.d("MainActivity", "$episodeList")

@@ -11,5 +11,5 @@ data class CharacterDto(
     val name: String,
 
     @SerializedName("image")
-    val imageURL: String
+    val imageUrl: String
 )

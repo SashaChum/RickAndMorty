@@ -11,7 +11,7 @@ data class CharacterDetailsDto (
     val name: String,
 
     @SerializedName("image")
-    val imageURL: String,
+    val imageUrl: String,
 
     @SerializedName("species")
     val species: String,
@@ -23,5 +23,5 @@ data class CharacterDetailsDto (
     val location: LocationDto,
 
     @SerializedName("episode")
-    val episodeURLs: List<String>
+    val episodeUrls: List<String>
 )

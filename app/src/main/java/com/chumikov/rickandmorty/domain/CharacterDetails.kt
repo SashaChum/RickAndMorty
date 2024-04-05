@@ -6,5 +6,6 @@ data class CharacterDetails (
     val imageURL: String,
     val species: String,
     val status: String,
-    val location: String
+    val location: String,
+    val episodes: List<String>  // Это поле вообще нужно?
 )

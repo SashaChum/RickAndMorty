@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData
 
 interface Repository {
 
-    fun getListOfCharacter(): LiveData<List<Character>>
+    fun getCharacterList(): LiveData<List<Character>>
 
-    fun getCharacterProfile(): LiveData<Character>
+    fun getCharacterDetails(): LiveData<CharacterDetails>
+
+    fun getCharacterEpisodes(): LiveData<List<Episode>>
 }

@@ -20,5 +20,8 @@ data class CharacterDetailsDto (
     val status: String,
 
     @SerializedName("location")
-    val location: LocationDto
+    val location: LocationDto,
+
+    @SerializedName("episode")
+    val episodeURLs: List<String>
 )

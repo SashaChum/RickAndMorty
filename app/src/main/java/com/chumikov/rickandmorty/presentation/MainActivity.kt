@@ -16,12 +16,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         CoroutineScope(Dispatchers.IO).launch {
-//            val allCharacters = rickAndMortyApi.getAllCharacters()
+            val allCharacters = rickAndMortyApi.getAllCharacters()
             val specificCharacter = rickAndMortyApi.getCharacterDetails(2)
-//            val episodeList = rickAndMortyApi.getEpisodeList(listOf(1, 2, 3).joinToString(","))
-//            Log.d("MainActivity", "$allCharacters")
+            val episodeList = rickAndMortyApi.getEpisodeList(listOf(1, 2, 3))
+            Log.d("MainActivity", "$allCharacters")
             Log.d("MainActivity", "$specificCharacter")
-//            Log.d("MainActivity", "$episodeList")
+            Log.d("MainActivity", "$episodeList")
         }
     }
 }

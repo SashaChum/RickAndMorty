@@ -14,7 +14,7 @@ interface RickAndMortyApi {
     @GET("character/{id}")
     suspend fun getCharacterDetails(@Path("id") id: Int): CharacterDetailsDto
 
-    @GET("episode/{arrayStr}")
-    suspend fun getEpisodeList(@Path("arrayStr") arrayStr: String): List<EpisodeDto>
+    @GET("episode/{list}")
+    suspend fun getEpisodeList(@Path("list") list: List<Int>): List<EpisodeDto>
 
 }

@@ -1,7 +1,7 @@
 package com.chumikov.rickandmorty.domain
 
 
-class GetCharacterListUseCase(
+class GetCharacterListUseCase (
     private val repository: RickAndMortyRepository
 ) {
     suspend operator fun invoke(): List<Character> {

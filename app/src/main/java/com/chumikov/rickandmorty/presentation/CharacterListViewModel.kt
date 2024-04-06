@@ -6,7 +6,7 @@ import com.chumikov.rickandmorty.data.repository.RickAndMortyRepositoryImpl
 import com.chumikov.rickandmorty.domain.GetCharacterListUseCase
 import kotlinx.coroutines.launch
 
-class MainViewModel : ViewModel() {
+class CharacterListViewModel : ViewModel() {
 
     private val repository = RickAndMortyRepositoryImpl()
     private val getCharacterListUseCase = GetCharacterListUseCase(repository)

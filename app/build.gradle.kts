@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
 }
 
 android {
@@ -47,13 +48,18 @@ dependencies {
 //    implementation("com.squareup.okhttp3:okhttp:4.7.2")
 //    implementation("com.squareup.okhttp3:logging-interceptor:4.7.2")
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.5")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.5")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.6")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.6")
 
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.4")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.5")
 
     implementation("androidx.navigation:navigation-fragment-ktx:2.4.5")
     implementation("androidx.navigation:navigation-ui-ktx:2.4.5")
+
+    implementation("com.google.dagger:dagger:2.42")
+    kapt("com.google.dagger:dagger-compiler:2.42")
+
+    implementation("io.coil-kt:coil:2.6.0")
 
 
     implementation("androidx.core:core-ktx:1.12.0")

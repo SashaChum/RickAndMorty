@@ -1,8 +1,9 @@
-package com.chumikov.rickandmorty.presentation.aapters
+package com.chumikov.rickandmorty.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
+import coil.load
 import com.chumikov.rickandmorty.databinding.ItemCharacterBinding
 import com.chumikov.rickandmorty.domain.Character
 
@@ -20,6 +21,7 @@ class CharacterListAdapter :
         val characterItem = getItem(position)
         with(holder.binding) {
             characterName.text = characterItem.name
+            characterPhoto.load(characterItem.imageUrl)
         }
     }
 

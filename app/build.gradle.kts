@@ -48,13 +48,13 @@ dependencies {
 //    implementation("com.squareup.okhttp3:okhttp:4.7.2")
 //    implementation("com.squareup.okhttp3:logging-interceptor:4.7.2")
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.6")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.6")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.5")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
 
-    implementation("androidx.navigation:navigation-fragment-ktx:2.4.5")
-    implementation("androidx.navigation:navigation-ui-ktx:2.4.5")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
 
     implementation("com.google.dagger:dagger:2.42")
     kapt("com.google.dagger:dagger-compiler:2.42")

@@ -1,4 +1,4 @@
-package com.chumikov.rickandmorty.presentation.aapters
+package com.chumikov.rickandmorty.presentation.adapters
 
 import androidx.recyclerview.widget.RecyclerView
 import com.chumikov.rickandmorty.databinding.ItemCharacterBinding

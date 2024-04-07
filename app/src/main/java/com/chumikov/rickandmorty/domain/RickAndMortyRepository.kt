@@ -3,7 +3,7 @@ package com.chumikov.rickandmorty.domain
 
 interface RickAndMortyRepository {
 
-    suspend fun getCharacterList(): List<Character>
+//    suspend fun getCharacterList(): List<Character>
 
     suspend fun getCharacterDetails(id: Int): CharacterDetails
 

@@ -6,7 +6,7 @@ import dagger.Binds
 import dagger.Module
 
 @Module
-interface DomainModule {
+interface DataModule {
 
     @Binds
     fun bindRepository(impl: RickAndMortyRepositoryImpl): RickAndMortyRepository

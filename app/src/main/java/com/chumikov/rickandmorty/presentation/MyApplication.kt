@@ -5,7 +5,5 @@ import com.chumikov.rickandmorty.di.DaggerApplicationComponent
 
 class MyApplication : Application() {
 
-    val component by lazy {
-        DaggerApplicationComponent.factory().create(this)
-    }
+    val component = DaggerApplicationComponent.factory().create(this)
 }

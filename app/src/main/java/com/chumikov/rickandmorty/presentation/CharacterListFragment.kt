@@ -7,18 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.paging.map
 import com.chumikov.rickandmorty.databinding.FragmentCharacterListBinding
 import com.chumikov.rickandmorty.presentation.adapters.CharacterListAdapter
 import javax.inject.Inject
 
-class CharacterListFragment: Fragment() {
+class CharacterListFragment(): Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    private lateinit var viewModel: CharacterListViewModel
+    private val viewModel by viewModels<CharacterListViewModel> { viewModelFactory }
 
     private val component by lazy {
         (requireActivity().application as MyApplication).component
@@ -48,15 +47,17 @@ class CharacterListFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this, viewModelFactory)[CharacterListViewModel::class.java]
-
         val adapter = CharacterListAdapter()
         binding.rvCharacterList.adapter = adapter
+//        adapter.withLoadStateFooter {
+//
+//        }
+
         viewModel.characters.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+            adapter.submitData(viewLifecycleOwner.lifecycle, it)
+
         }
     }
-
 
 
     override fun onDestroyView() {

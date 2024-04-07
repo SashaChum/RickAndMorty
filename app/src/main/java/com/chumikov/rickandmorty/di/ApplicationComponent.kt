@@ -1,15 +1,15 @@
 package com.chumikov.rickandmorty.di
 
 import android.content.Context
-import androidx.fragment.app.Fragment
+import com.chumikov.rickandmorty.presentation.CharacterListFragment
 import dagger.BindsInstance
 import dagger.Component
 
-
+@ApplicationScope
 @Component(modules = [DomainModule::class, ViewModelModule::class])
 interface ApplicationComponent {
 
-    fun inject(fragment: Fragment)
+    fun inject(fragment: CharacterListFragment)
 
     @Component.Factory
     interface ApplicationComponentFactory {

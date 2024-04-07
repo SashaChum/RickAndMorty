@@ -6,10 +6,12 @@ import com.chumikov.rickandmorty.domain.Character
 import com.chumikov.rickandmorty.domain.CharacterDetails
 import com.chumikov.rickandmorty.domain.Episode
 import com.chumikov.rickandmorty.domain.RickAndMortyRepository
+import javax.inject.Inject
 
-class RickAndMortyRepositoryImpl(
-    private val api: RickAndMortyApi = RickAndMortyApiFactory.rickAndMortyApi
+class RickAndMortyRepositoryImpl @Inject constructor(
 ): RickAndMortyRepository {
+
+    private val api = RickAndMortyApiFactory.rickAndMortyApi
 
     override suspend fun getCharacterList(): List<Character> {
         val dtoObjList = api.getAllCharacters().allCharacters

@@ -8,11 +8,12 @@ import com.chumikov.rickandmorty.data.repository.RickAndMortyRepositoryImpl
 import com.chumikov.rickandmorty.domain.Character
 import com.chumikov.rickandmorty.domain.GetCharacterListUseCase
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CharacterListViewModel : ViewModel() {
+class CharacterListViewModel @Inject constructor(
+    private val getCharacterListUseCase: GetCharacterListUseCase
+) : ViewModel() {
 
-    private val repository = RickAndMortyRepositoryImpl()
-    private val getCharacterListUseCase = GetCharacterListUseCase(repository)
 
     private val _characters = MutableLiveData<List<Character>>()
     val characters: LiveData<List<Character>>

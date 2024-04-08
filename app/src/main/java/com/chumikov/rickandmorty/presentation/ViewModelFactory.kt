@@ -3,7 +3,9 @@ package com.chumikov.rickandmorty.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.chumikov.rickandmorty.di.ApplicationScope
+import dagger.assisted.Assisted
 import javax.inject.Inject
+import javax.inject.Named
 import javax.inject.Provider
 
 @ApplicationScope

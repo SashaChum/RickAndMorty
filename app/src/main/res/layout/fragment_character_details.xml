@@ -7,11 +7,11 @@
     android:background="@color/material_dynamic_primary60">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="0dp"
-        android:layout_height="600dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp"
         app:cardElevation="10dp"
         app:cardUseCompatPadding="true"
-        app:cardCornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,12 +23,13 @@
             android:background="@color/material_dynamic_primary90"
             android:orientation="vertical">
 
+
             <ImageView
                 android:id="@+id/character_photo"
                 android:layout_width="320dp"
                 android:layout_height="320dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/edit_border"
                 android:contentDescription="@string/image_description"
                 tools:src="@mipmap/ic_launcher" />
@@ -41,7 +42,8 @@
                 android:layout_marginTop="20dp"
                 android:fontFamily="serif"
                 android:textAlignment="center"
-                android:textColor="@color/design_default_color_on_secondary"
+                android:paddingHorizontal="4dp"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold|italic"
                 tools:text="Имя какого-то персонажа" />
@@ -53,7 +55,8 @@
                 android:layout_marginTop="20dp"
                 android:fontFamily="serif"
                 android:textAlignment="center"
-                android:textColor="@color/design_default_color_on_secondary"
+                android:paddingHorizontal="4dp"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold|italic"
                 tools:text="Местоположение персонажа" />
@@ -65,7 +68,8 @@
                 android:layout_marginTop="20dp"
                 android:fontFamily="serif"
                 android:textAlignment="center"
-                android:textColor="@color/design_default_color_on_secondary"
+                android:paddingHorizontal="4dp"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold|italic"
                 tools:text="Вид персонажа" />
@@ -75,9 +79,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
                 android:fontFamily="serif"
                 android:textAlignment="center"
-                android:textColor="@color/design_default_color_on_secondary"
+                android:paddingHorizontal="4dp"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold|italic"
                 tools:text="Статус персонажа" />

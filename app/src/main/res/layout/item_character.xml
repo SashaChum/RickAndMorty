@@ -34,7 +34,8 @@
             android:layout_marginTop="30dp"
             android:fontFamily="serif"
             android:textAlignment="center"
-            android:textColor="@color/design_default_color_on_secondary"
+            android:paddingHorizontal="4dp"
+            android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold|italic"
             tools:text="Имя какого-то персонажа" />

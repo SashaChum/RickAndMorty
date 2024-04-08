@@ -7,9 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.paging.map
 import com.chumikov.rickandmorty.databinding.FragmentCharacterListBinding
-import com.chumikov.rickandmorty.presentation.adapters.CharacterListAdapter
+import com.chumikov.rickandmorty.presentation.adapters.CharacterPageAdapter
 import javax.inject.Inject
 
 class CharacterListFragment(): Fragment() {
@@ -47,7 +46,7 @@ class CharacterListFragment(): Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = CharacterListAdapter()
+        val adapter = CharacterPageAdapter()
         binding.rvCharacterList.adapter = adapter
 //        adapter.withLoadStateFooter {
 //

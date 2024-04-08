@@ -6,10 +6,12 @@ import dagger.BindsInstance
 import dagger.Component
 
 @ApplicationScope
-@Component(modules = [ApiModule::class, DataModule::class, ViewModelModule::class])
+@Component(modules = [ApiModule::class, DataModule::class, CharacterListViewModelModule::class])
 interface ApplicationComponent {
 
     fun inject(fragment: CharacterListFragment)
+
+    fun characterListFragmentComponentFactory():CharacterListFragmentComponent.Factory
 
     @Component.Factory
     interface ApplicationComponentFactory {

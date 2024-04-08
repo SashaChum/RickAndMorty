@@ -10,12 +10,18 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CharacterDetailsViewModel @Inject constructor(
-    private val getCharacterDetailsUseCase: GetCharacterDetailsUseCase
+    private val getCharacterDetailsUseCase: GetCharacterDetailsUseCase,
+    private val id: Int
 ) : ViewModel() {
 
     private val _characterDetails = MutableLiveData<CharacterDetails>()
     val characterDetails: LiveData<CharacterDetails>
         get() = _characterDetails
 
-
+    init {
+        viewModelScope.launch {
+            val characterDetails = getCharacterDetailsUseCase(id)
+            _characterDetails.value = characterDetails
+        }
+    }
 }

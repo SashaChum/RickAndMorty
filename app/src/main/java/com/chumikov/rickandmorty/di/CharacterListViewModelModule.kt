@@ -7,10 +7,11 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 
 @Module
-interface ViewModelModule {
+interface CharacterListViewModelModule {
 
     @IntoMap
     @ViewModelKey(CharacterListViewModel::class)
     @Binds
     fun bindCharacterListViewModel(viewModel: CharacterListViewModel): ViewModel
+
 }

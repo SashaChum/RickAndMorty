@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import coil.load
+import com.chumikov.rickandmorty.R
 import com.chumikov.rickandmorty.databinding.FragmentCharacterDetailsBinding
 import javax.inject.Inject
 
@@ -48,13 +49,19 @@ class CharacterDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val nameTemplate = getString(R.string.name_template)
+        val locationTemplate = getString(R.string.location_template)
+        val speciesTemplate = getString(R.string.species_template)
+        val statusTemplate = getString(R.string.status_template)
+
         viewModel.characterDetails.observe(viewLifecycleOwner) {
             with(binding) {
                 characterPhoto.load(it.imageUrl)
-                characterName.text = it.name
-                characterLocation.text = it.location
-                characterSpecies.text = it.species
-                characterStatus.text = it.status
+                characterName.text = String.format(nameTemplate, it.name)
+                characterLocation.text = String.format(locationTemplate, it.location)
+                characterSpecies.text = String.format(speciesTemplate, it.species)
+                characterStatus.text = String.format(statusTemplate, it.status)
 
             }
 

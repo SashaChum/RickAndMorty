@@ -41,12 +41,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:fontFamily="serif"
-                android:textAlignment="center"
                 android:paddingHorizontal="4dp"
+                android:text="@string/name_template"
+                android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="18sp"
-                android:textStyle="bold|italic"
-                tools:text="Имя какого-то персонажа" />
+                android:textStyle="bold|italic" />
 
             <TextView
                 android:id="@+id/character_location"
@@ -54,12 +54,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:fontFamily="serif"
-                android:textAlignment="center"
                 android:paddingHorizontal="4dp"
+                android:text="@string/location_template"
+                android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="18sp"
-                android:textStyle="bold|italic"
-                tools:text="Местоположение персонажа" />
+                android:textStyle="bold|italic" />
 
             <TextView
                 android:id="@+id/character_species"
@@ -67,26 +67,44 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:fontFamily="serif"
-                android:textAlignment="center"
                 android:paddingHorizontal="4dp"
+                android:text="@string/species_template"
+                android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="18sp"
-                android:textStyle="bold|italic"
-                tools:text="Вид персонажа" />
+                android:textStyle="bold|italic" />
 
             <TextView
                 android:id="@+id/character_status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
                 android:fontFamily="serif"
-                android:textAlignment="center"
                 android:paddingHorizontal="4dp"
+                android:text="@string/status_template"
+                android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="18sp"
-                android:textStyle="bold|italic"
-                tools:text="Статус персонажа" />
+                android:textStyle="bold|italic" />
+
+            <Button
+                android:id="@+id/episodes_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginVertical="30dp"
+                android:backgroundTint="@color/material_dynamic_primary60"
+                android:fontFamily="serif"
+                android:elevation="6dp"
+                android:translationZ="6dp"
+                android:stateListAnimator="@null"
+                android:text="@string/button_episodes_text"
+                android:textAllCaps="true"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:elevation="10dp"
+                />
+
 
         </LinearLayout>
 

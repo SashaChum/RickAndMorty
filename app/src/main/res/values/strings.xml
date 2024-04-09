@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">RickAndMorty</string>
     <string name="image_description">character\'s photo</string>
+    <string name="button_episodes_text">go to the episodes info</string>
+    <string name="name_template">Name: %s</string>
+    <string name="location_template">Location: %s</string>
+    <string name="species_template">Species: %s</string>
+    <string name="status_template">Status: %s</string>
 </resources>

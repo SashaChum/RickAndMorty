@@ -19,5 +19,16 @@
         <argument
             android:name="characterId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_characterDetailsFragment_to_episodeFragment"
+            app:destination="@id/episodeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/episodeFragment"
+        android:name="com.chumikov.rickandmorty.presentation.EpisodeFragment"
+        android:label="EpisodeFragment" >
+        <argument
+            android:name="episodesId"
+            app:argType="integer[]" />
     </fragment>
 </navigation>

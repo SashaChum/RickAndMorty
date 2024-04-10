@@ -1,3 +1,5 @@
+package com.chumikov.rickandmorty.presentation.adapters
+
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -5,8 +7,6 @@ import androidx.recyclerview.widget.ListAdapter
 import com.chumikov.rickandmorty.R
 import com.chumikov.rickandmorty.databinding.ItemEpisodeBinding
 import com.chumikov.rickandmorty.domain.Episode
-import com.chumikov.rickandmorty.presentation.adapters.EpisodeDiffCallback
-import com.chumikov.rickandmorty.presentation.adapters.EpisodeListViewHolder
 
 class EpisodeListAdapter(
     private val context: Context

@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 class CharacterDetailsViewModel @Inject constructor(
     private val getCharacterDetailsUseCase: GetCharacterDetailsUseCase,
-    private val id: Int
+    private val characterId: Int
 ) : ViewModel() {
 
     private val _characterDetails = MutableLiveData<CharacterDetails>()
@@ -20,7 +20,7 @@ class CharacterDetailsViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            val characterDetails = getCharacterDetailsUseCase(id)
+            val characterDetails = getCharacterDetailsUseCase(characterId)
             _characterDetails.value = characterDetails
         }
     }

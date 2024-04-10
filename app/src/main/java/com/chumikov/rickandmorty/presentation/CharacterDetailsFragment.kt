@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.chumikov.rickandmorty.R
@@ -55,18 +56,30 @@ class CharacterDetailsFragment : Fragment() {
         val speciesTemplate = getString(R.string.species_template)
         val statusTemplate = getString(R.string.status_template)
 
-        viewModel.characterDetails.observe(viewLifecycleOwner) {
+        viewModel.characterDetails.observe(viewLifecycleOwner) {domain ->
             with(binding) {
-                characterPhoto.load(it.imageUrl)
-                characterName.text = String.format(nameTemplate, it.name)
-                characterLocation.text = String.format(locationTemplate, it.location)
-                characterSpecies.text = String.format(speciesTemplate, it.species)
-                characterStatus.text = String.format(statusTemplate, it.status)
+                characterPhoto.load(domain.imageUrl)
+                characterName.text = String.format(nameTemplate, domain.name)
+                characterLocation.text = String.format(locationTemplate, domain.location)
+                characterSpecies.text = String.format(speciesTemplate, domain.species)
+                characterStatus.text = String.format(statusTemplate, domain.status)
 
+                binding.episodesButton.setOnClickListener {
+                    findNavController().navigate(
+                        CharacterDetailsFragmentDirections
+                            .actionCharacterDetailsFragmentToEpisodeFragment(
+                                domain.episodes.toIntArray()
+                            )
+                    )
+                }
             }
-
         }
 
+
+//        val ids = viewModel.characterDetails.value
+//        if (ids != null) {
+//
+//        }
     }
 
     override fun onDestroyView() {

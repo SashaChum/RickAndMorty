@@ -13,6 +13,8 @@ interface ApplicationComponent {
 
     fun characterListFragmentComponentFactory():CharacterListFragmentComponent.Factory
 
+    fun episodeFragmentComponentFactory():EpisodeFragmentComponent.Factory
+
     @Component.Factory
     interface ApplicationComponentFactory {
 

@@ -56,6 +56,11 @@ class CharacterDetailsFragment : Fragment() {
         val speciesTemplate = getString(R.string.species_template)
         val statusTemplate = getString(R.string.status_template)
 
+        viewModel.textGood.observe(viewLifecycleOwner) {
+            binding.mainCardView.visibility = View.VISIBLE
+            binding.progrBarDetailsScreen.visibility = View.GONE
+        }
+
         viewModel.characterDetails.observe(viewLifecycleOwner) {domain ->
             with(binding) {
                 characterPhoto.load(domain.imageUrl)

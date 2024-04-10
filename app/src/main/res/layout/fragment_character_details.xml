@@ -7,11 +7,12 @@
     android:background="@color/material_dynamic_primary60">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/main_card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         app:cardCornerRadius="8dp"
         app:cardElevation="10dp"
-        android:visibility="invisible"
         app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -116,11 +117,23 @@
         android:layout_height="84dp"
         android:elevation="12dp"
         android:indeterminateTint="@color/material_dynamic_primary90"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progr_bar_big_photo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="240dp"
+        android:elevation="12dp"
+        android:visibility="gone"
+        android:indeterminateTint="@color/material_dynamic_primary90"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

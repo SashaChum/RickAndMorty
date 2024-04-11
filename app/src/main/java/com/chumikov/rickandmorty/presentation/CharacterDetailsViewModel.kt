@@ -18,19 +18,36 @@ class CharacterDetailsViewModel @Inject constructor(
     val characterDetails: LiveData<CharacterDetails>
         get() = _characterDetails
 
-    private val _textGood = MutableLiveData<Unit>()
-    val textGood:LiveData<Unit>
-        get() = _textGood
+//    private val _textGood = MutableLiveData<Unit>()
+//    val textGood:LiveData<Unit>
+//        get() = _textGood
 
-    private val _photoGood = MutableLiveData<Unit>()
-    val photoGood:LiveData<Unit>
-        get() = _photoGood
+    private val _status = MutableLiveData<LoadingUiState>()
+    val status: LiveData<LoadingUiState>
+        get() = _status
 
     init {
+        load()
+    }
+
+    private fun load() {
+
         viewModelScope.launch {
-            val characterDetails = getCharacterDetailsUseCase(characterId)
-            _characterDetails.value = characterDetails
-            _textGood.value = Unit
+            _status.value = LoadingUiState.Loading
+            try {
+                val characterDetails = getCharacterDetailsUseCase(characterId)
+                _characterDetails.value = characterDetails
+                _status.value = LoadingUiState.Success
+            } catch (e: Exception) {
+                _status.value = LoadingUiState.Error
+            }
         }
     }
+
+    fun retry() {
+        load()
+    }
+
+
+
 }

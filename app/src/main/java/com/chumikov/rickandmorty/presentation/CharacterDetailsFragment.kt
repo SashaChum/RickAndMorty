@@ -57,12 +57,10 @@ class CharacterDetailsFragment : Fragment() {
         val statusTemplate = getString(R.string.status_template)
         val filler = R.drawable.placeholder_image
 
-        viewModel.textGood.observe(viewLifecycleOwner) {
-            binding.mainCardView.visibility = View.VISIBLE
-            binding.progrBarDetailsScreen.visibility = View.GONE
-        }
-
-//        val request = ImageRequest.Builder(this).data()
+//        viewModel.textGood.observe(viewLifecycleOwner) {
+//            binding.mainCardView.visibility = View.VISIBLE
+//            binding.progrBarDetailsScreen.visibility = View.GONE
+//        }
 
         viewModel.characterDetails.observe(viewLifecycleOwner) {domain ->
             with(binding) {

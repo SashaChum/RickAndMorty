@@ -13,7 +13,6 @@ import coil.load
 import com.chumikov.rickandmorty.R
 import com.chumikov.rickandmorty.databinding.FragmentCharacterDetailsBinding
 import javax.inject.Inject
-import coil.request.ImageRequest
 
 class CharacterDetailsFragment : Fragment() {
 
@@ -56,6 +55,7 @@ class CharacterDetailsFragment : Fragment() {
         val locationTemplate = getString(R.string.location_template)
         val speciesTemplate = getString(R.string.species_template)
         val statusTemplate = getString(R.string.status_template)
+        val filler = R.drawable.placeholder_image
 
         viewModel.textGood.observe(viewLifecycleOwner) {
             binding.mainCardView.visibility = View.VISIBLE
@@ -67,10 +67,9 @@ class CharacterDetailsFragment : Fragment() {
         viewModel.characterDetails.observe(viewLifecycleOwner) {domain ->
             with(binding) {
                 characterPhoto.load(domain.imageUrl) {
-                    crossfade(true)
-                    placeholder(R.drawable.placeholder_image)
-                    error(R.drawable.placeholder_image)
-                    fallback(R.drawable.placeholder_image)
+                    placeholder(filler)
+                    error(filler)
+                    fallback(filler)
                 }
                 characterName.text = String.format(nameTemplate, domain.name)
                 characterLocation.text = String.format(locationTemplate, domain.location)

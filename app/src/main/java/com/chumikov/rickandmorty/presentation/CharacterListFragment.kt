@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.chumikov.rickandmorty.R
 import com.chumikov.rickandmorty.databinding.FragmentCharacterListBinding
 import com.chumikov.rickandmorty.presentation.adapters.CharacterPageAdapter
 import javax.inject.Inject
@@ -48,7 +47,7 @@ class CharacterListFragment(): Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = CharacterPageAdapter()
+        val adapter = CharacterPageAdapter(requireContext())
         adapter.onCharacterClickListener = {
             findNavController().navigate(
                 CharacterListFragmentDirections

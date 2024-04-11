@@ -13,6 +13,7 @@ import coil.load
 import com.chumikov.rickandmorty.R
 import com.chumikov.rickandmorty.databinding.FragmentCharacterDetailsBinding
 import javax.inject.Inject
+import coil.request.ImageRequest
 
 class CharacterDetailsFragment : Fragment() {
 
@@ -61,9 +62,16 @@ class CharacterDetailsFragment : Fragment() {
             binding.progrBarDetailsScreen.visibility = View.GONE
         }
 
+//        val request = ImageRequest.Builder(this).data()
+
         viewModel.characterDetails.observe(viewLifecycleOwner) {domain ->
             with(binding) {
-                characterPhoto.load(domain.imageUrl)
+                characterPhoto.load(domain.imageUrl) {
+                    crossfade(true)
+                    placeholder(R.drawable.placeholder_image)
+                    error(R.drawable.placeholder_image)
+                    fallback(R.drawable.placeholder_image)
+                }
                 characterName.text = String.format(nameTemplate, domain.name)
                 characterLocation.text = String.format(locationTemplate, domain.location)
                 characterSpecies.text = String.format(speciesTemplate, domain.species)

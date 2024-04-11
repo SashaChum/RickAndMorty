@@ -51,36 +51,56 @@ class CharacterDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val cardView = binding.mainCardView
+        val loader = binding.progrBarDetailsScreen
+        val retryButton = binding.retryButton
+        val imageView =  binding.characterPhoto
+
+        retryButton.setOnClickListener {
+            viewModel.retry()
+        }
+
         val nameTemplate = getString(R.string.name_template)
         val locationTemplate = getString(R.string.location_template)
         val speciesTemplate = getString(R.string.species_template)
         val statusTemplate = getString(R.string.status_template)
         val filler = R.drawable.placeholder_image
 
-//        viewModel.textGood.observe(viewLifecycleOwner) {
-//            binding.mainCardView.visibility = View.VISIBLE
-//            binding.progrBarDetailsScreen.visibility = View.GONE
-//        }
-
-        viewModel.characterDetails.observe(viewLifecycleOwner) {domain ->
-            with(binding) {
-                characterPhoto.load(domain.imageUrl) {
-                    placeholder(filler)
-                    error(filler)
-                    fallback(filler)
+        viewModel.status.observe(viewLifecycleOwner) { state ->
+            when(state) {
+                is LoadingUiState.Error -> {
+                    retryButton.visibility = View.VISIBLE
+                    cardView.visibility = View.INVISIBLE
+                    loader.visibility = View.INVISIBLE
                 }
-                characterName.text = String.format(nameTemplate, domain.name)
-                characterLocation.text = String.format(locationTemplate, domain.location)
-                characterSpecies.text = String.format(speciesTemplate, domain.species)
-                characterStatus.text = String.format(statusTemplate, domain.status)
+                is LoadingUiState.Loading -> {
+                    loader.visibility = View.VISIBLE
+                    cardView.visibility = View.INVISIBLE
+                    retryButton.visibility = View.INVISIBLE
+                }
+                is LoadingUiState.Success -> {
+                    cardView.visibility = View.VISIBLE
+                    loader.visibility = View.INVISIBLE
+                    retryButton.visibility = View.INVISIBLE
 
-                binding.episodesButton.setOnClickListener {
-                    findNavController().navigate(
-                        CharacterDetailsFragmentDirections
-                            .actionCharacterDetailsFragmentToEpisodeFragment(
-                                domain.episodes.toIntArray()
-                            )
-                    )
+                    imageView.load(state.data.imageUrl) {
+                        placeholder(filler)
+                        error(filler)
+                        fallback(filler)
+                    }
+                    binding.characterName.text = String.format(nameTemplate, state.data.name)
+                    binding.characterLocation.text = String.format(locationTemplate, state.data.location)
+                    binding.characterSpecies.text = String.format(speciesTemplate, state.data.species)
+                    binding.characterStatus.text = String.format(statusTemplate, state.data.status)
+
+                    binding.episodesButton.setOnClickListener {
+                        findNavController().navigate(
+                            CharacterDetailsFragmentDirections
+                                .actionCharacterDetailsFragmentToEpisodeFragment(
+                                    state.data.episodes.toIntArray()
+                                )
+                        )
+                    }
                 }
             }
         }

@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.chumikov.rickandmorty.domain.CharacterDetails
 import com.chumikov.rickandmorty.domain.GetCharacterDetailsUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -13,14 +12,6 @@ class CharacterDetailsViewModel @Inject constructor(
     private val getCharacterDetailsUseCase: GetCharacterDetailsUseCase,
     private val characterId: Int
 ) : ViewModel() {
-
-    private val _characterDetails = MutableLiveData<CharacterDetails>()
-    val characterDetails: LiveData<CharacterDetails>
-        get() = _characterDetails
-
-//    private val _textGood = MutableLiveData<Unit>()
-//    val textGood:LiveData<Unit>
-//        get() = _textGood
 
     private val _status = MutableLiveData<LoadingUiState>()
     val status: LiveData<LoadingUiState>
@@ -36,8 +27,7 @@ class CharacterDetailsViewModel @Inject constructor(
             _status.value = LoadingUiState.Loading
             try {
                 val characterDetails = getCharacterDetailsUseCase(characterId)
-                _characterDetails.value = characterDetails
-                _status.value = LoadingUiState.Success
+                _status.value = LoadingUiState.Success(characterDetails)
             } catch (e: Exception) {
                 _status.value = LoadingUiState.Error
             }
@@ -47,7 +37,5 @@ class CharacterDetailsViewModel @Inject constructor(
     fun retry() {
         load()
     }
-
-
 
 }

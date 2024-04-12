@@ -68,17 +68,17 @@ class CharacterDetailsFragment : Fragment() {
 
         viewModel.status.observe(viewLifecycleOwner) { state ->
             when(state) {
-                is LoadingUiState.Error -> {
+                is LoadingUiDetailsState.Error -> {
                     retryButton.visibility = View.VISIBLE
                     cardView.visibility = View.INVISIBLE
                     loader.visibility = View.INVISIBLE
                 }
-                is LoadingUiState.Loading -> {
+                is LoadingUiDetailsState.Loading -> {
                     loader.visibility = View.VISIBLE
                     cardView.visibility = View.INVISIBLE
                     retryButton.visibility = View.INVISIBLE
                 }
-                is LoadingUiState.Success -> {
+                is LoadingUiDetailsState.Success -> {
                     cardView.visibility = View.VISIBLE
                     loader.visibility = View.INVISIBLE
                     retryButton.visibility = View.INVISIBLE
@@ -88,10 +88,18 @@ class CharacterDetailsFragment : Fragment() {
                         error(filler)
                         fallback(filler)
                     }
-                    binding.characterName.text = String.format(nameTemplate, state.data.name)
-                    binding.characterLocation.text = String.format(locationTemplate, state.data.location)
-                    binding.characterSpecies.text = String.format(speciesTemplate, state.data.species)
-                    binding.characterStatus.text = String.format(statusTemplate, state.data.status)
+                    binding.characterName.text = String.format(
+                        nameTemplate, state.data.name
+                    )
+                    binding.characterLocation.text = String.format(
+                        locationTemplate, state.data.location
+                    )
+                    binding.characterSpecies.text = String.format(
+                        speciesTemplate, state.data.species
+                    )
+                    binding.characterStatus.text = String.format(
+                        statusTemplate, state.data.status
+                    )
 
                     binding.episodesButton.setOnClickListener {
                         findNavController().navigate(
@@ -104,12 +112,6 @@ class CharacterDetailsFragment : Fragment() {
                 }
             }
         }
-
-
-//        val ids = viewModel.characterDetails.value
-//        if (ids != null) {
-//
-//        }
     }
 
     override fun onDestroyView() {

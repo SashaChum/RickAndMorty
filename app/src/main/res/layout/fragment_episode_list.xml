@@ -20,7 +20,23 @@
         android:indeterminateTint="@color/material_dynamic_primary90"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/retry_button"
+        android:layout_width="match_parent"
+        android:layout_height="84dp"
+        android:layout_marginHorizontal="8dp"
+        android:backgroundTint="#303F9F"
+        android:elevation="10dp"
+        android:fontFamily="serif"
+        android:stateListAnimator="@null"
+        android:text="@string/retry_text"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

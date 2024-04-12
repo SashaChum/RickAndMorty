@@ -51,10 +51,37 @@ class EpisodeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val loader = binding.progrBarEpisodeScreen
+        val retryButton = binding.retryButton
+        val recyclerView = binding.rvEpisodes
+
+        retryButton.setOnClickListener {
+            viewModel.retry()
+        }
+
         val adapter = EpisodeListAdapter(requireContext())
         binding.rvEpisodes.adapter = adapter
-        viewModel.episodeList.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+
+        viewModel.status.observe(viewLifecycleOwner) {status ->
+            when(status) {
+                is LoadingUiEpisodesState.Error -> {
+                    retryButton.visibility = View.VISIBLE
+                    recyclerView.visibility = View.INVISIBLE
+                    loader.visibility = View.INVISIBLE
+                }
+                is LoadingUiEpisodesState.Loading -> {
+                    loader.visibility = View.VISIBLE
+                    recyclerView.visibility = View.INVISIBLE
+                    retryButton.visibility = View.INVISIBLE
+                }
+                is LoadingUiEpisodesState.Success -> {
+                    recyclerView.visibility = View.VISIBLE
+                    loader.visibility = View.INVISIBLE
+                    retryButton.visibility = View.INVISIBLE
+                    adapter.submitList(status.data)
+                }
+            }
         }
     }
 

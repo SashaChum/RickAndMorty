@@ -7,5 +7,6 @@
     <string name="species_template">Species: %s</string>
     <string name="status_template">Status: %s</string>
     <string name="air_date_template">Air date: %s</string>
-    <string name="retry_text">Something went wrong. Do retry?</string>
+    <string name="retry_text">Something went wrong… Retry.</string>
+    <string name="retry">Retry</string>
 </resources>

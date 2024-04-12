@@ -47,6 +47,7 @@ class CharacterListFragment(): Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val adapter = CharacterPageAdapter(requireContext())
         adapter.onCharacterClickListener = {
             findNavController().navigate(

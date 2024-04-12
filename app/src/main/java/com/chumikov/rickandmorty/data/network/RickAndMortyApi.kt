@@ -1,5 +1,6 @@
 package com.chumikov.rickandmorty.data.network
 
+import androidx.annotation.IntRange
 import com.chumikov.rickandmorty.data.network.model.CharacterDetailsDto
 import com.chumikov.rickandmorty.data.network.model.CharacterListDto
 import com.chumikov.rickandmorty.data.network.model.EpisodeDto
@@ -13,7 +14,7 @@ interface RickAndMortyApi {
 //    suspend fun getAllCharacters(): CharacterListDto
 
     @GET("character")
-    suspend fun getCharacterPaging(@Query("page") page: Int): CharacterListDto
+    suspend fun getCharacterPaging(@Query("page") @IntRange(from = 1) page: Int): CharacterListDto
 
     @GET("character/{id}")
     suspend fun getCharacterDetails(@Path("id") id: Int): CharacterDetailsDto

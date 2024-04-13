@@ -28,6 +28,7 @@
     <Button
         android:id="@+id/retry_button"
         android:layout_width="100dp"
+        android:backgroundTint="#303F9F"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:fontFamily="serif"

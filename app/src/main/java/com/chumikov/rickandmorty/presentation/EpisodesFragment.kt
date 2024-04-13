@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -63,25 +64,12 @@ class EpisodesFragment : Fragment() {
         val adapter = EpisodeListAdapter(requireContext())
         binding.rvEpisodes.adapter = adapter
 
-        viewModel.status.observe(viewLifecycleOwner) {status ->
-            when(status) {
-                is EpisodesLoadingState.Error -> {
-                    retryButton.visibility = View.VISIBLE
-                    recyclerView.visibility = View.INVISIBLE
-                    loader.visibility = View.INVISIBLE
-                }
-                is EpisodesLoadingState.Loading -> {
-                    loader.visibility = View.VISIBLE
-                    recyclerView.visibility = View.INVISIBLE
-                    retryButton.visibility = View.INVISIBLE
-                }
-                is EpisodesLoadingState.Success -> {
-                    recyclerView.visibility = View.VISIBLE
-                    loader.visibility = View.INVISIBLE
-                    retryButton.visibility = View.INVISIBLE
-                    adapter.submitList(status.data)
-                }
-            }
+        viewModel.status.observe(viewLifecycleOwner) {state ->
+            retryButton.isInvisible = state !is EpisodesLoadingState.Error
+            recyclerView.isInvisible = state !is EpisodesLoadingState.Success
+            loader.isInvisible = state !is EpisodesLoadingState.Loading
+
+            if (state is EpisodesLoadingState.Success) adapter.submitList(state.data)
         }
     }
 

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -54,63 +55,46 @@ class CharacterDetailsFragment : Fragment() {
         val cardView = binding.mainCardView
         val loader = binding.progrBarDetailsScreen
         val retryButton = binding.retryButton
-        val imageView =  binding.characterPhoto
-
-        retryButton.setOnClickListener {
-            viewModel.retry()
-        }
-
-        val nameTemplate = getString(R.string.name_template)
-        val locationTemplate = getString(R.string.location_template)
-        val speciesTemplate = getString(R.string.species_template)
-        val statusTemplate = getString(R.string.status_template)
         val filler = R.drawable.placeholder_image
 
+        retryButton.setOnClickListener { viewModel.retry() }
+
         viewModel.status.observe(viewLifecycleOwner) { state ->
-            when(state) {
-                is CharacterDetailsLoadingState.Error -> {
-                    retryButton.visibility = View.VISIBLE
-                    cardView.visibility = View.INVISIBLE
-                    loader.visibility = View.INVISIBLE
-                }
-                is CharacterDetailsLoadingState.Loading -> {
-                    loader.visibility = View.VISIBLE
-                    cardView.visibility = View.INVISIBLE
-                    retryButton.visibility = View.INVISIBLE
-                }
-                is CharacterDetailsLoadingState.Success -> {
-                    cardView.visibility = View.VISIBLE
-                    loader.visibility = View.INVISIBLE
-                    retryButton.visibility = View.INVISIBLE
 
-                    imageView.load(state.data.imageUrl) {
-                        placeholder(filler)
-                        error(filler)
-                        fallback(filler)
-                    }
-                    binding.characterName.text = String.format(
-                        nameTemplate, state.data.name
-                    )
-                    binding.characterLocation.text = String.format(
-                        locationTemplate, state.data.location
-                    )
-                    binding.characterSpecies.text = String.format(
-                        speciesTemplate, state.data.species
-                    )
-                    binding.characterStatus.text = String.format(
-                        statusTemplate, state.data.status
-                    )
+            retryButton.isInvisible = state !is CharacterDetailsLoadingState.Error
+            cardView.isInvisible = state !is CharacterDetailsLoadingState.Success
+            loader.isInvisible = state !is CharacterDetailsLoadingState.Loading
 
-                    binding.episodesButton.setOnClickListener {
-                        findNavController().navigate(
-                            CharacterDetailsFragmentDirections
-                                .actionCharacterDetailsFragmentToEpisodeFragment(
-                                    state.data.episodes.toIntArray()
-                                )
-                        )
-                    }
+            if (state is CharacterDetailsLoadingState.Success) {
+                binding.characterPhoto.load(state.data.imageUrl) {
+                    placeholder(filler)
+                    error(filler)
+                    fallback(filler)
                 }
+                binding.characterName.text = String.format(
+                    getString(R.string.name_template), state.data.name
+                )
+                binding.characterLocation.text = String.format(
+                    getString(R.string.location_template), state.data.location
+                )
+                binding.characterSpecies.text = String.format(
+                    getString(R.string.species_template), state.data.species
+                )
+                binding.characterStatus.text = String.format(
+                    getString(R.string.status_template), state.data.status
+                )
+                toEpisodesScreen(state)
             }
+        }
+    }
+
+    private fun toEpisodesScreen(state: CharacterDetailsLoadingState.Success) {
+        binding.episodesButton.setOnClickListener {
+            findNavController().navigate(
+                CharacterDetailsFragmentDirections.actionCharacterDetailsFragmentToEpisodeFragment(
+                    state.data.episodes.toIntArray()
+                )
+            )
         }
     }
 

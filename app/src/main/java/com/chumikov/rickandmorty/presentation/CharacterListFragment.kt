@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
+import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -17,7 +17,7 @@ import com.chumikov.rickandmorty.presentation.adapters.LoadStateAdapter
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class CharacterListFragment(): Fragment() {
+class CharacterListFragment: Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -58,36 +58,18 @@ class CharacterListFragment(): Fragment() {
         val retryButton = binding.retryButton
 
         val listAdapter = CharacterPageAdapter(requireContext())
-        val loadStateAdapter = LoadStateAdapter {listAdapter.retry()}
+        val loadStateAdapter = LoadStateAdapter { listAdapter.retry() }
         recyclerView.adapter = listAdapter.withLoadStateFooter(loadStateAdapter)
 
-        retryButton.setOnClickListener {
-            listAdapter.retry()
-        }
+        retryButton.setOnClickListener { listAdapter.retry() }
 
        lifecycleScope.launch {
             listAdapter.loadStateFlow.collect { loadState ->
-                when(loadState.refresh) {
-                    is LoadState.Error -> {
-                        retryButton.visibility = View.VISIBLE
-                        recyclerView.visibility = View.INVISIBLE
-                        loader.visibility = View.INVISIBLE
-                    }
-                    is LoadState.Loading -> {
-                        loader.visibility = View.VISIBLE
-                        recyclerView.visibility = View.INVISIBLE
-                        retryButton.visibility = View.INVISIBLE
-                    }
-                    is LoadState.NotLoading -> {
-                        recyclerView.visibility = View.VISIBLE
-                        loader.visibility = View.INVISIBLE
-                        retryButton.visibility = View.INVISIBLE
-                    }
-                }
+                recyclerView.isInvisible = loadState.refresh !is LoadState.NotLoading
+                loader.isInvisible = loadState.refresh !is LoadState.Loading
+                retryButton.isInvisible = loadState.refresh !is LoadState.Error
             }
         }
-
-
 
         listAdapter.onCharacterClickListener = {
             findNavController().navigate(
@@ -98,16 +80,11 @@ class CharacterListFragment(): Fragment() {
 
         viewModel.characters.observe(viewLifecycleOwner) {
             listAdapter.submitData(viewLifecycleOwner.lifecycle, it)
-
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun FragmentCharacterListBinding.bindState() {
-
     }
 }

@@ -13,14 +13,14 @@ import com.chumikov.rickandmorty.presentation.adapters.EpisodeListAdapter
 import javax.inject.Inject
 
 
-class EpisodeFragment : Fragment() {
+class EpisodesFragment : Fragment() {
 
-    private val args by navArgs<EpisodeFragmentArgs>()
+    private val args by navArgs<EpisodesFragmentArgs>()
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    private val viewModel by viewModels<EpisodeViewModel> { viewModelFactory }
+    private val viewModel by viewModels<EpisodesViewModel> { viewModelFactory }
 
     private val component by lazy {
         (requireActivity()
@@ -65,17 +65,17 @@ class EpisodeFragment : Fragment() {
 
         viewModel.status.observe(viewLifecycleOwner) {status ->
             when(status) {
-                is LoadingUiEpisodesState.Error -> {
+                is EpisodesLoadingState.Error -> {
                     retryButton.visibility = View.VISIBLE
                     recyclerView.visibility = View.INVISIBLE
                     loader.visibility = View.INVISIBLE
                 }
-                is LoadingUiEpisodesState.Loading -> {
+                is EpisodesLoadingState.Loading -> {
                     loader.visibility = View.VISIBLE
                     recyclerView.visibility = View.INVISIBLE
                     retryButton.visibility = View.INVISIBLE
                 }
-                is LoadingUiEpisodesState.Success -> {
+                is EpisodesLoadingState.Success -> {
                     recyclerView.visibility = View.VISIBLE
                     loader.visibility = View.INVISIBLE
                     retryButton.visibility = View.INVISIBLE

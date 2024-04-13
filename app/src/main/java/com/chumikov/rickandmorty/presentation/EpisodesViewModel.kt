@@ -8,13 +8,13 @@ import com.chumikov.rickandmorty.domain.GetCharacterEpisodesUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class EpisodeViewModel @Inject constructor(
+class EpisodesViewModel @Inject constructor(
     private val getCharacterEpisodesUseCase: GetCharacterEpisodesUseCase,
     private val episodes: List<Int>
 ) : ViewModel() {
 
-    private val _status = MutableLiveData<LoadingUiEpisodesState>()
-    val status: LiveData<LoadingUiEpisodesState>
+    private val _status = MutableLiveData<EpisodesLoadingState>()
+    val status: LiveData<EpisodesLoadingState>
         get() = _status
 
 
@@ -25,12 +25,12 @@ class EpisodeViewModel @Inject constructor(
     private fun load() {
 
         viewModelScope.launch {
-            _status.value = LoadingUiEpisodesState.Loading
+            _status.value = EpisodesLoadingState.Loading
             try {
                 val episodeList = getCharacterEpisodesUseCase(episodes)
-                _status.value = LoadingUiEpisodesState.Success(episodeList)
+                _status.value = EpisodesLoadingState.Success(episodeList)
             } catch (e: Exception) {
-                _status.value = LoadingUiEpisodesState.Error
+                _status.value = EpisodesLoadingState.Error
             }
         }
     }

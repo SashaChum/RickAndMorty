@@ -13,8 +13,8 @@ class CharacterDetailsViewModel @Inject constructor(
     private val characterId: Int
 ) : ViewModel() {
 
-    private val _status = MutableLiveData<LoadingUiDetailsState>()
-    val status: LiveData<LoadingUiDetailsState>
+    private val _status = MutableLiveData<CharacterDetailsLoadingState>()
+    val status: LiveData<CharacterDetailsLoadingState>
         get() = _status
 
     init {
@@ -24,12 +24,12 @@ class CharacterDetailsViewModel @Inject constructor(
     private fun load() {
 
         viewModelScope.launch {
-            _status.value = LoadingUiDetailsState.Loading
+            _status.value = CharacterDetailsLoadingState.Loading
             try {
                 val characterDetails = getCharacterDetailsUseCase(characterId)
-                _status.value = LoadingUiDetailsState.Success(characterDetails)
+                _status.value = CharacterDetailsLoadingState.Success(characterDetails)
             } catch (e: Exception) {
-                _status.value = LoadingUiDetailsState.Error
+                _status.value = CharacterDetailsLoadingState.Error
             }
         }
     }

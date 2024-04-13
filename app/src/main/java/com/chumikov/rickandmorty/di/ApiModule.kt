@@ -20,8 +20,8 @@ class ApiModule {
     @Provides
     fun provideRetrofit(): Retrofit {
         val client = OkHttpClient.Builder()
-            .connectTimeout(5, TimeUnit.SECONDS)
-            .readTimeout(5,TimeUnit.SECONDS)
+            .connectTimeout(3, TimeUnit.SECONDS)
+            .readTimeout(3,TimeUnit.SECONDS)
             .build()
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())

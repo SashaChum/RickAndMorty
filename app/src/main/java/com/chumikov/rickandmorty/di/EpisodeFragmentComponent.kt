@@ -1,14 +1,13 @@
 package com.chumikov.rickandmorty.di
 
-import com.chumikov.rickandmorty.presentation.CharacterDetailsFragment
-import com.chumikov.rickandmorty.presentation.EpisodeFragment
+import com.chumikov.rickandmorty.presentation.EpisodesFragment
 import dagger.BindsInstance
 import dagger.Subcomponent
 
 @Subcomponent(modules = [EpisodeViewModelModule::class])
 interface EpisodeFragmentComponent {
 
-    fun inject(fragment: EpisodeFragment)
+    fun inject(fragment: EpisodesFragment)
 
     @Subcomponent.Factory
     interface Factory {

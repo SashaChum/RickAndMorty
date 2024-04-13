@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/episodeFragment"
-        android:name="com.chumikov.rickandmorty.presentation.EpisodeFragment"
+        android:name="com.chumikov.rickandmorty.presentation.EpisodesFragment"
         android:label="EpisodeFragment" >
         <argument
             android:name="episodesId"

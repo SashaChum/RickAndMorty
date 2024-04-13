@@ -17,6 +17,7 @@
         android:id="@+id/progr_bar_episode_screen"
         android:layout_width="84dp"
         android:layout_height="84dp"
+        android:elevation="12dp"
         android:indeterminateTint="@color/material_dynamic_primary90"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

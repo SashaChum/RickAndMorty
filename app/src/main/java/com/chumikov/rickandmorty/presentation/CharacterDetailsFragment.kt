@@ -68,17 +68,17 @@ class CharacterDetailsFragment : Fragment() {
 
         viewModel.status.observe(viewLifecycleOwner) { state ->
             when(state) {
-                is LoadingUiDetailsState.Error -> {
+                is CharacterDetailsLoadingState.Error -> {
                     retryButton.visibility = View.VISIBLE
                     cardView.visibility = View.INVISIBLE
                     loader.visibility = View.INVISIBLE
                 }
-                is LoadingUiDetailsState.Loading -> {
+                is CharacterDetailsLoadingState.Loading -> {
                     loader.visibility = View.VISIBLE
                     cardView.visibility = View.INVISIBLE
                     retryButton.visibility = View.INVISIBLE
                 }
-                is LoadingUiDetailsState.Success -> {
+                is CharacterDetailsLoadingState.Success -> {
                     cardView.visibility = View.VISIBLE
                     loader.visibility = View.INVISIBLE
                     retryButton.visibility = View.INVISIBLE

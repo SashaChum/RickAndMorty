@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.chumikov.rickandmorty.databinding.FragmentCharacterListBinding
 import com.chumikov.rickandmorty.presentation.adapters.CharacterPageAdapter
+import com.chumikov.rickandmorty.presentation.adapters.LoadStateAdapter
 import javax.inject.Inject
 
 class CharacterListFragment(): Fragment() {
@@ -49,17 +50,16 @@ class CharacterListFragment(): Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = CharacterPageAdapter(requireContext())
+        binding.rvCharacterList.adapter = adapter
+        adapter.withLoadStateFooter(LoadStateAdapter {adapter.retry()})
+
+
         adapter.onCharacterClickListener = {
             findNavController().navigate(
                 CharacterListFragmentDirections
                     .actionCharacterListFragmentToCharacterDetailsFragment(it)
             )
         }
-
-        binding.rvCharacterList.adapter = adapter
-//        adapter.withLoadStateFooter {
-//
-//        }
 
         viewModel.characters.observe(viewLifecycleOwner) {
             adapter.submitData(viewLifecycleOwner.lifecycle, it)
@@ -70,5 +70,9 @@ class CharacterListFragment(): Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun FragmentCharacterListBinding.bindState() {
+
     }
 }

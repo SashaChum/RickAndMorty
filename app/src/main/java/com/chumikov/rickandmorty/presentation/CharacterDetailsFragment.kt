@@ -45,7 +45,8 @@ class CharacterDetailsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentCharacterDetailsBinding.inflate(inflater, container, false)
+        _binding = FragmentCharacterDetailsBinding
+            .inflate(inflater, container, false)
         return binding.root
     }
 

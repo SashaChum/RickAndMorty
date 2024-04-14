@@ -10,7 +10,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        app:title="List Of Episodes"
+        app:title="List Of The Episodes"
         app:titleCentered="true"
         app:titleTextAppearance="@style/my_toolbar_style"
         app:layout_constraintTop_toTopOf="parent"

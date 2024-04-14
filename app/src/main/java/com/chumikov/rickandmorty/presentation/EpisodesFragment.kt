@@ -64,6 +64,7 @@ class EpisodesFragment : Fragment() {
         binding.rvEpisodes.adapter = adapter
 
         viewModel.status.observe(viewLifecycleOwner) {state ->
+            toolbar.isInvisible = state !is EpisodesLoadingState.Success
             retryButton.isInvisible = state !is EpisodesLoadingState.Error
             binding.rvEpisodes.isInvisible = state !is EpisodesLoadingState.Success
             binding.loader.isInvisible = state !is EpisodesLoadingState.Loading

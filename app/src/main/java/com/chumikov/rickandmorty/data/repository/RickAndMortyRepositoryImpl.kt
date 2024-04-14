@@ -1,7 +1,6 @@
 package com.chumikov.rickandmorty.data.repository
 
 import com.chumikov.rickandmorty.data.network.RickAndMortyApi
-import com.chumikov.rickandmorty.domain.Character
 import com.chumikov.rickandmorty.domain.CharacterDetails
 import com.chumikov.rickandmorty.domain.Episode
 import com.chumikov.rickandmorty.domain.RickAndMortyRepository
@@ -10,11 +9,6 @@ import javax.inject.Inject
 class RickAndMortyRepositoryImpl @Inject constructor(
     private val api: RickAndMortyApi
 ): RickAndMortyRepository {
-
-//    override suspend fun getCharacterList(): List<Character> {
-//        val dtoObjList = api.getAllCharacters().allCharacters
-//        return dtoObjList.map { Character(id = it.id, name = it.name, imageUrl = it.imageUrl) }
-//    }
 
     override suspend fun getCharacterDetails(id: Int): CharacterDetails {
         val dtoObj = api.getCharacterDetails(id)

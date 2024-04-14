@@ -52,18 +52,20 @@ class CharacterDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val cardView = binding.mainCardView
-        val loader = binding.progrBarDetailsScreen
-        val retryButton = binding.retryButton
         val filler = R.drawable.placeholder_image
 
+        val toolbar = binding.toolbar
+        toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
+
+        val retryButton = binding.retryButton
         retryButton.setOnClickListener { viewModel.retry() }
 
         viewModel.status.observe(viewLifecycleOwner) { state ->
 
+            binding.mainCardView.isInvisible = state !is CharacterDetailsLoadingState.Success
+            binding.loader.isInvisible = state !is CharacterDetailsLoadingState.Loading
+            toolbar.isInvisible = state !is CharacterDetailsLoadingState.Success
             retryButton.isInvisible = state !is CharacterDetailsLoadingState.Error
-            cardView.isInvisible = state !is CharacterDetailsLoadingState.Success
-            loader.isInvisible = state !is CharacterDetailsLoadingState.Loading
 
             if (state is CharacterDetailsLoadingState.Success) {
                 binding.characterPhoto.load(state.data.imageUrl) {

@@ -54,20 +54,20 @@ class CharacterListFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val recyclerView = binding.rvCharacterList
-        val loader = binding.progrBarFirstScreen
         val retryButton = binding.retryButton
 
         val listAdapter = CharacterPageAdapter(requireContext())
+        retryButton.setOnClickListener { listAdapter.retry() }
+
         val loadStateAdapter = LoadStateAdapter { listAdapter.retry() }
         recyclerView.adapter = listAdapter.withLoadStateFooter(loadStateAdapter)
-
-        retryButton.setOnClickListener { listAdapter.retry() }
 
        lifecycleScope.launch {
             listAdapter.loadStateFlow.collect { loadState ->
                 recyclerView.isInvisible = loadState.refresh !is LoadState.NotLoading
-                loader.isInvisible = loadState.refresh !is LoadState.Loading
+                binding.loader.isInvisible = loadState.refresh !is LoadState.Loading
                 retryButton.isInvisible = loadState.refresh !is LoadState.Error
+                binding.toolbar.isInvisible = loadState.refresh !is LoadState.NotLoading
             }
         }
 

@@ -65,7 +65,6 @@ class CharacterDetailsFragment : Fragment() {
 
         lifecycleScope.launch {
             viewModel.status.collect { state ->
-
                 binding.mainCardView.isInvisible = state !is CharacterDetailsLoadingState.Success
                 binding.loader.isInvisible = state !is CharacterDetailsLoadingState.Loading
                 toolbar.isInvisible = state !is CharacterDetailsLoadingState.Success
@@ -93,7 +92,6 @@ class CharacterDetailsFragment : Fragment() {
                 }
             }
         }
-
     }
 
     private fun toEpisodesScreen(state: CharacterDetailsLoadingState.Success) {

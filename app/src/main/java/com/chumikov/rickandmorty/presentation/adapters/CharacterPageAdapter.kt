@@ -25,7 +25,7 @@ class CharacterPageAdapter(
     }
 
     override fun onBindViewHolder(holder: CharacterListViewHolder, position: Int) {
-        val characterItem = getItem(position)  // тут возвращает  Character?
+        val characterItem = getItem(position)
         val binding = holder.binding
         val filler = ContextCompat.getDrawable(context, R.drawable.placeholder_image)
 

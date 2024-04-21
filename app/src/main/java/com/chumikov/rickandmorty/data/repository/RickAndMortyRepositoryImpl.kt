@@ -15,9 +15,13 @@ class RickAndMortyRepositoryImpl @Inject constructor(
         val episodeIds = dtoObj.episodeUrls.map {
             it.substringAfterLast("/").toInt() }
         return CharacterDetails(
-            id = dtoObj.id, name = dtoObj.name, imageUrl = dtoObj.imageUrl,
-            species = dtoObj.species, status = dtoObj.status,
-            location = dtoObj.location.name, episodes = episodeIds
+            id = dtoObj.id,
+            name = dtoObj.name,
+            imageUrl = dtoObj.imageUrl,
+            species = dtoObj.species,
+            status = dtoObj.status,
+            location = dtoObj.location.name,
+            episodes = episodeIds
         )
     }
 

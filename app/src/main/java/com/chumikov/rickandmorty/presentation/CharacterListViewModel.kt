@@ -12,6 +12,7 @@ class CharacterListViewModel @Inject constructor(
     private val characterPagingDataSource: CharacterPagingDataSource
 ) : ViewModel() {
 
-    val characters = Pager(PagingConfig(pageSize = 20)) {
-        characterPagingDataSource }.flow.cachedIn(viewModelScope)
+    val characters = Pager(PagingConfig(pageSize = 20)) { characterPagingDataSource }
+        .flow
+        .cachedIn(viewModelScope)
 }

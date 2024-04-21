@@ -63,7 +63,7 @@ class CharacterListFragment: Fragment() {
         val loadStateAdapter = LoadStateAdapter { listAdapter.retry() }
         recyclerView.adapter = listAdapter.withLoadStateFooter(loadStateAdapter)
 
-       lifecycleScope.launch {
+        lifecycleScope.launch {
             listAdapter.loadStateFlow.collect { loadState ->
                 recyclerView.isInvisible = loadState.refresh !is LoadState.NotLoading
                 binding.loader.isInvisible = loadState.refresh !is LoadState.Loading
@@ -78,12 +78,9 @@ class CharacterListFragment: Fragment() {
                     .actionCharacterListFragmentToCharacterDetailsFragment(it)
             )
         }
-//        viewModel.characters.observe(viewLifecycleOwner) {
-//            listAdapter.submitData(viewLifecycleOwner.lifecycle, it)
-//        }
 
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewModel.characters.collectLatest {
                     listAdapter.submitData(it)
                 }

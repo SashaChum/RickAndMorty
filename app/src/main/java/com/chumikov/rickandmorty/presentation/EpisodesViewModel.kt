@@ -1,18 +1,18 @@
 package com.chumikov.rickandmorty.presentation
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chumikov.rickandmorty.domain.GetCharacterEpisodesUseCase
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class EpisodesViewModel @Inject constructor(
+class EpisodesViewModel @AssistedInject constructor(
     private val getCharacterEpisodesUseCase: GetCharacterEpisodesUseCase,
-    private val episodes: List<Int>
+    @Assisted private val episodes: List<Int>
 ) : ViewModel() {
 
     private val _status =
@@ -37,5 +37,10 @@ class EpisodesViewModel @Inject constructor(
     fun retry() {
         _status.value = EpisodesLoadingState.Loading
         load()
+    }
+
+    @AssistedFactory
+    interface Factory {
+        fun get(episodes: List<Int>): EpisodesViewModel
     }
 }

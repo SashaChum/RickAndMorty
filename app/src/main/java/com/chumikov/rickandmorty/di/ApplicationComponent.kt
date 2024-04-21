@@ -1,7 +1,9 @@
 package com.chumikov.rickandmorty.di
 
 import android.content.Context
+import com.chumikov.rickandmorty.presentation.CharacterDetailsFragment
 import com.chumikov.rickandmorty.presentation.CharacterListFragment
+import com.chumikov.rickandmorty.presentation.EpisodesFragment
 import dagger.BindsInstance
 import dagger.Component
 
@@ -10,10 +12,8 @@ import dagger.Component
 interface ApplicationComponent {
 
     fun inject(fragment: CharacterListFragment)
-
-    fun characterListFragmentComponentFactory():CharacterListFragmentComponent.Factory
-
-    fun episodeFragmentComponentFactory():EpisodeFragmentComponent.Factory
+    fun inject(fragment: CharacterDetailsFragment)
+    fun inject(fragment: EpisodesFragment)
 
     @Component.Factory
     interface ApplicationComponentFactory {

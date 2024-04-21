@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -22,16 +21,14 @@ class EpisodesFragment : Fragment() {
     private val args by navArgs<EpisodesFragmentArgs>()
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+    lateinit var viewModelFactory: EpisodesViewModel.Factory
 
-    private val viewModel by viewModels<EpisodesViewModel> { viewModelFactory }
+    private val viewModel by getViewModel<EpisodesViewModel> {
+        viewModelFactory.get(args.episodesId.toList())
+    }
 
     private val component by lazy {
-        (requireActivity()
-            .application as MyApplication)
-            .component
-            .episodeFragmentComponentFactory()
-            .create(args.episodesId.toList())
+        (requireActivity().application as MyApplication).component
     }
 
     private var _binding: FragmentEpisodeListBinding? = null

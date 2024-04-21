@@ -1,18 +1,18 @@
 package com.chumikov.rickandmorty.presentation
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chumikov.rickandmorty.domain.GetCharacterDetailsUseCase
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class CharacterDetailsViewModel @Inject constructor(
+class CharacterDetailsViewModel @AssistedInject constructor(
     private val getCharacterDetailsUseCase: GetCharacterDetailsUseCase,
-    private val characterId: Int
+    @Assisted private val characterId: Int
 ) : ViewModel() {
 
     private val _status =
@@ -39,4 +39,8 @@ class CharacterDetailsViewModel @Inject constructor(
         load()
     }
 
+    @AssistedFactory
+    interface Factory {
+        fun get(id: Int): CharacterDetailsViewModel
+    }
 }

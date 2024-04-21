@@ -8,10 +8,12 @@ import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.chumikov.rickandmorty.databinding.FragmentEpisodeListBinding
 import com.chumikov.rickandmorty.presentation.adapters.EpisodeListAdapter
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -63,13 +65,15 @@ class EpisodesFragment : Fragment() {
         val adapter = EpisodeListAdapter(requireContext())
         binding.rvEpisodes.adapter = adapter
 
-        viewModel.status.observe(viewLifecycleOwner) {state ->
-            toolbar.isInvisible = state !is EpisodesLoadingState.Success
-            retryButton.isInvisible = state !is EpisodesLoadingState.Error
-            binding.rvEpisodes.isInvisible = state !is EpisodesLoadingState.Success
-            binding.loader.isInvisible = state !is EpisodesLoadingState.Loading
+        lifecycleScope.launch {
+            viewModel.status.collect { state ->
+                toolbar.isInvisible = state !is EpisodesLoadingState.Success
+                retryButton.isInvisible = state !is EpisodesLoadingState.Error
+                binding.rvEpisodes.isInvisible = state !is EpisodesLoadingState.Success
+                binding.loader.isInvisible = state !is EpisodesLoadingState.Loading
 
-            if (state is EpisodesLoadingState.Success) adapter.submitList(state.data)
+                if (state is EpisodesLoadingState.Success) adapter.submitList(state.data)
+            }
         }
     }
 

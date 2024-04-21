@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chumikov.rickandmorty.domain.GetCharacterDetailsUseCase
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -13,18 +15,16 @@ class CharacterDetailsViewModel @Inject constructor(
     private val characterId: Int
 ) : ViewModel() {
 
-    private val _status = MutableLiveData<CharacterDetailsLoadingState>()
-    val status: LiveData<CharacterDetailsLoadingState>
-        get() = _status
+    private val _status =
+        MutableStateFlow<CharacterDetailsLoadingState>(CharacterDetailsLoadingState.Loading)
+    val status = _status.asStateFlow()
 
     init {
         load()
     }
 
     private fun load() {
-
         viewModelScope.launch {
-            _status.value = CharacterDetailsLoadingState.Loading
             try {
                 val characterDetails = getCharacterDetailsUseCase(characterId)
                 _status.value = CharacterDetailsLoadingState.Success(characterDetails)
@@ -35,6 +35,7 @@ class CharacterDetailsViewModel @Inject constructor(
     }
 
     fun retry() {
+        _status.value = CharacterDetailsLoadingState.Loading
         load()
     }
 

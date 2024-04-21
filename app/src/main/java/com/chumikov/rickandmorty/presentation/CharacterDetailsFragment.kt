@@ -8,11 +8,13 @@ import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.chumikov.rickandmorty.R
 import com.chumikov.rickandmorty.databinding.FragmentCharacterDetailsBinding
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CharacterDetailsFragment : Fragment() {
@@ -61,34 +63,37 @@ class CharacterDetailsFragment : Fragment() {
         val retryButton = binding.retryButton
         retryButton.setOnClickListener { viewModel.retry() }
 
-        viewModel.status.observe(viewLifecycleOwner) { state ->
+        lifecycleScope.launch {
+            viewModel.status.collect { state ->
 
-            binding.mainCardView.isInvisible = state !is CharacterDetailsLoadingState.Success
-            binding.loader.isInvisible = state !is CharacterDetailsLoadingState.Loading
-            toolbar.isInvisible = state !is CharacterDetailsLoadingState.Success
-            retryButton.isInvisible = state !is CharacterDetailsLoadingState.Error
+                binding.mainCardView.isInvisible = state !is CharacterDetailsLoadingState.Success
+                binding.loader.isInvisible = state !is CharacterDetailsLoadingState.Loading
+                toolbar.isInvisible = state !is CharacterDetailsLoadingState.Success
+                retryButton.isInvisible = state !is CharacterDetailsLoadingState.Error
 
-            if (state is CharacterDetailsLoadingState.Success) {
-                binding.characterPhoto.load(state.data.imageUrl) {
-                    placeholder(filler)
-                    error(filler)
-                    fallback(filler)
+                if (state is CharacterDetailsLoadingState.Success) {
+                    binding.characterPhoto.load(state.data.imageUrl) {
+                        placeholder(filler)
+                        error(filler)
+                        fallback(filler)
+                    }
+                    binding.characterName.text = String.format(
+                        getString(R.string.name_template), state.data.name
+                    )
+                    binding.characterLocation.text = String.format(
+                        getString(R.string.location_template), state.data.location
+                    )
+                    binding.characterSpecies.text = String.format(
+                        getString(R.string.species_template), state.data.species
+                    )
+                    binding.characterStatus.text = String.format(
+                        getString(R.string.status_template), state.data.status
+                    )
+                    toEpisodesScreen(state)
                 }
-                binding.characterName.text = String.format(
-                    getString(R.string.name_template), state.data.name
-                )
-                binding.characterLocation.text = String.format(
-                    getString(R.string.location_template), state.data.location
-                )
-                binding.characterSpecies.text = String.format(
-                    getString(R.string.species_template), state.data.species
-                )
-                binding.characterStatus.text = String.format(
-                    getString(R.string.status_template), state.data.status
-                )
-                toEpisodesScreen(state)
             }
         }
+
     }
 
     private fun toEpisodesScreen(state: CharacterDetailsLoadingState.Success) {

@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -19,13 +18,14 @@ import com.chumikov.rickandmorty.presentation.adapters.LoadStateAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import javax.inject.Provider
 
 class CharacterListFragment: Fragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+    lateinit var viewModelProvider: Provider<CharacterListViewModel>
 
-    private val viewModel by viewModels<CharacterListViewModel> { viewModelFactory }
+    private val viewModel by getViewModel { viewModelProvider.get() }
 
     private val component by lazy {
         (requireActivity().application as MyApplication).component

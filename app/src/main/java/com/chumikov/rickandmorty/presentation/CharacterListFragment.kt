@@ -2,6 +2,7 @@ package com.chumikov.rickandmorty.presentation
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,9 +26,13 @@ class CharacterListFragment: Fragment() {
     @Inject
     lateinit var viewModelProvider: Provider<CharacterListViewModel>
 
-    private val viewModel by getViewModel { viewModelProvider.get() }
+    private val viewModel by getViewModel {
+        Log.d("My Inspection", "CharacterListFragment viewModel by getViewModel")
+        viewModelProvider.get()
+    }
 
     private val component by lazy {
+        Log.d("My Inspection", "CharacterListFragment component")
         (requireActivity().application as MyApplication).component
     }
 
@@ -36,10 +41,16 @@ class CharacterListFragment: Fragment() {
     private val binding: FragmentCharacterListBinding
         get() = _binding ?: throw RuntimeException("FragmentCharacterListBinding is null")
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d("My Inspection", "CharacterListFragment onCreate")
+    }
+
 
     override fun onAttach(context: Context) {
         component.inject(this)
         super.onAttach(context)
+        Log.d("My Inspection", "CharacterListFragment onAttach")
     }
 
     override fun onCreateView(
@@ -47,12 +58,14 @@ class CharacterListFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        Log.d("My Inspection", "CharacterListFragment onCreateView")
         _binding = FragmentCharacterListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("My Inspection", "CharacterListFragment onViewCreated")
 
         val recyclerView = binding.rvCharacterList
         val retryButton = binding.retryButton
@@ -88,8 +101,30 @@ class CharacterListFragment: Fragment() {
         }
     }
 
+    override fun onStop() {
+        super.onStop()
+        Log.d("My Inspection", "CharacterListFragment onStop")
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        Log.d("My Inspection", "CharacterListFragment onSaveInstanceState")
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
+        Log.d("My Inspection", "CharacterListFragment onDestroyView")
         _binding = null
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("My Inspection", "CharacterListFragment onDestroy")
+
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Log.d("My Inspection", "CharacterListFragment onDetach")
     }
 }

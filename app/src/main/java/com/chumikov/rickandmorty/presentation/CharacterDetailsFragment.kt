@@ -6,10 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,37 +18,21 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.outlined.ArrowBack
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CardElevation
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.currentRecomposeScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
@@ -62,20 +44,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.compose.AsyncImage
-import coil.load
 import coil.request.ImageRequest
 import com.chumikov.rickandmorty.R
 import com.chumikov.rickandmorty.databinding.FragmentCharacterDetailsBinding
 import com.chumikov.rickandmorty.ui_theme.MyBlue
+import com.chumikov.rickandmorty.ui_theme.MyDarkBlue
 import com.chumikov.rickandmorty.ui_theme.MyLightBlue
-import com.chumikov.rickandmorty.ui_theme.Purple200
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CharacterDetailsFragment : Fragment() {
@@ -93,12 +71,6 @@ class CharacterDetailsFragment : Fragment() {
         (requireActivity().application as MyApplication).component
     }
 
-
-    private var _binding: FragmentCharacterDetailsBinding? = null
-    private val binding: FragmentCharacterDetailsBinding
-        get() = _binding ?: throw RuntimeException("FragmentCharacterDetailsBinding == null")
-
-
     override fun onAttach(context: Context) {
         component.inject(this)
         super.onAttach(context)
@@ -107,10 +79,6 @@ class CharacterDetailsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-//        _binding = FragmentCharacterDetailsBinding
-//            .inflate(inflater, container, false)
-//        return binding.root
-
         return ComposeView(requireContext()).apply {
             setContent {
                 when (val stateValue = viewModel.status.collectAsState().value) {
@@ -120,7 +88,6 @@ class CharacterDetailsFragment : Fragment() {
                                 .fillMaxSize()
                                 .background(MyBlue)
                         ) {
-
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -129,7 +96,7 @@ class CharacterDetailsFragment : Fragment() {
                             ) {
                                 IconButton(
                                     onClick = {
-
+                                        findNavController().popBackStack()
                                     }
                                 ) {
                                     Icon(
@@ -142,12 +109,11 @@ class CharacterDetailsFragment : Fragment() {
                                     text = "Character's Detailed Info",
                                     fontWeight = FontWeight.Bold,
                                     fontFamily = FontFamily.Serif,
-                                    fontSize = 20.sp,
+                                    fontSize = 18.sp,
                                     textAlign = TextAlign.Center
                                 )
                                 Spacer(modifier = Modifier.width(48.dp))
                             }
-
                             Column(
                                 modifier = Modifier
                                     .fillMaxSize()
@@ -161,7 +127,8 @@ class CharacterDetailsFragment : Fragment() {
                                     .clip(RoundedCornerShape(12.dp))
                                     .background(MyLightBlue)
                             ) {
-                                val imagePlaceholder = R.drawable.placeholder_image
+                                val placeholderPainter =
+                                    painterResource(R.drawable.placeholder_image)
                                 AsyncImage(
                                     modifier = Modifier
                                         .fillMaxSize()
@@ -176,8 +143,9 @@ class CharacterDetailsFragment : Fragment() {
                                         .data(stateValue.data.imageUrl)
                                         .crossfade(true)
                                         .build(),
-                                    placeholder = painterResource(imagePlaceholder),
-                                    error = painterResource(imagePlaceholder),
+                                    placeholder = placeholderPainter,
+                                    error = placeholderPainter,
+                                    fallback = placeholderPainter,
                                     contentDescription = "Character's Photo",
                                     contentScale = ContentScale.Crop,
                                 )
@@ -246,7 +214,14 @@ class CharacterDetailsFragment : Fragment() {
                                             start = 20.dp,
                                             end = 20.dp
                                         ),
-                                    onClick = { },
+                                    onClick = {
+                                        findNavController().navigate(
+                                            CharacterDetailsFragmentDirections
+                                                .actionCharacterDetailsFragmentToEpisodeFragment(
+                                                stateValue.data.episodes.toIntArray()
+                                            )
+                                        )
+                                    },
                                     colors = ButtonDefaults.buttonColors(MyBlue)
                                 ) {
                                     Text(
@@ -256,7 +231,6 @@ class CharacterDetailsFragment : Fragment() {
                                         fontWeight = FontWeight.Bold,
                                     )
                                 }
-
                             }
                         }
                     }
@@ -269,15 +243,37 @@ class CharacterDetailsFragment : Fragment() {
                             contentAlignment = Alignment.Center,
                         ) {
                             CircularProgressIndicator(
-                                modifier = Modifier.size(80.dp),
-                                color = MyLightBlue
+                                modifier = Modifier.size(72.dp),
+                                color = MyLightBlue,
+                                strokeWidth = 6.dp
                             )
                         }
                     }
 
                     is CharacterDetailsLoadingState.Error -> {
-                        Button(onClick = { }) {
-                            Text(text = "Ошибка")
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(MyBlue),
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            Button(
+                                modifier = Modifier
+                                    .height(84.dp)
+                                    .padding(horizontal = 10.dp),
+                                onClick = {
+                                    viewModel.retry()
+                                },
+                                colors = ButtonDefaults.buttonColors(MyDarkBlue)
+                            ) {
+                                Text(
+                                    text = getString(R.string.retry_text),
+                                    fontSize = 24.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    fontFamily = FontFamily.Serif,
+                                    textAlign = TextAlign.Center
+                                )
+                            }
                         }
                     }
                 }
@@ -327,21 +323,7 @@ class CharacterDetailsFragment : Fragment() {
 //            }
 //        }
 //    }
-//
-//    private fun toEpisodesScreen(state: CharacterDetailsLoadingState.Success) {
-//        binding.episodesButton.setOnClickListener {
-//            findNavController().navigate(
-//                CharacterDetailsFragmentDirections.actionCharacterDetailsFragmentToEpisodeFragment(
-//                    state.data.episodes.toIntArray()
-//                )
-//            )
-//        }
-//    }
-//
-//    override fun onDestroyView() {
-//        super.onDestroyView()
-//        _binding = null
-//    }
+
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -375,8 +357,5 @@ fun foo() {
 //            colors = TopAppBarDefaults.topAppBarColors(MyBlue)
 //        )
 
-        CircularProgressIndicator(
-            color = MyLightBlue
-        )
     }
 }

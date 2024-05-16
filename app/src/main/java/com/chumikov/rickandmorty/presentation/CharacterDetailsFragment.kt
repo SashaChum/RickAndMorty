@@ -2,19 +2,19 @@ package com.chumikov.rickandmorty.presentation
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -24,7 +24,6 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -50,7 +49,6 @@ import androidx.navigation.fragment.navArgs
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.chumikov.rickandmorty.R
-import com.chumikov.rickandmorty.databinding.FragmentCharacterDetailsBinding
 import com.chumikov.rickandmorty.ui_theme.MyBlue
 import com.chumikov.rickandmorty.ui_theme.MyDarkBlue
 import com.chumikov.rickandmorty.ui_theme.MyLightBlue
@@ -81,13 +79,23 @@ class CharacterDetailsFragment : Fragment() {
     ): View {
         return ComposeView(requireContext()).apply {
             setContent {
-                when (val stateValue = viewModel.status.collectAsState().value) {
-                    is CharacterDetailsLoadingState.Success -> {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .background(MyBlue)
-                        ) {
+
+                Log.d("my compose", "внутри setContent")
+
+                val state = viewModel.status.collectAsState()
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(MyBlue),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Log.d("my compose", "внутри основного контейнера")
+
+                    when (state.value) {
+                        is CharacterDetailsLoadingState.Success -> {
+                            val stateValue = state.value as CharacterDetailsLoadingState.Success
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -218,8 +226,8 @@ class CharacterDetailsFragment : Fragment() {
                                         findNavController().navigate(
                                             CharacterDetailsFragmentDirections
                                                 .actionCharacterDetailsFragmentToEpisodeFragment(
-                                                stateValue.data.episodes.toIntArray()
-                                            )
+                                                    stateValue.data.episodes.toIntArray()
+                                                )
                                         )
                                     },
                                     colors = ButtonDefaults.buttonColors(MyBlue)
@@ -233,34 +241,18 @@ class CharacterDetailsFragment : Fragment() {
                                 }
                             }
                         }
-                    }
 
-                    is CharacterDetailsLoadingState.Loading -> {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .background(MyBlue),
-                            contentAlignment = Alignment.Center,
-                        ) {
+                        is CharacterDetailsLoadingState.Loading -> {
                             CircularProgressIndicator(
                                 modifier = Modifier.size(72.dp),
                                 color = MyLightBlue,
                                 strokeWidth = 6.dp
                             )
                         }
-                    }
 
-                    is CharacterDetailsLoadingState.Error -> {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .background(MyBlue),
-                            contentAlignment = Alignment.Center,
-                        ) {
+                        is CharacterDetailsLoadingState.Error -> {
                             Button(
-                                modifier = Modifier
-                                    .height(84.dp)
-                                    .padding(horizontal = 10.dp),
+                                modifier = Modifier.padding(10.dp),
                                 onClick = {
                                     viewModel.retry()
                                 },
@@ -271,91 +263,40 @@ class CharacterDetailsFragment : Fragment() {
                                     fontSize = 24.sp,
                                     fontWeight = FontWeight.Bold,
                                     fontFamily = FontFamily.Serif,
-                                    textAlign = TextAlign.Center
+                                    textAlign = TextAlign.Center,
+                                    lineHeight = 34.sp
                                 )
                             }
                         }
                     }
                 }
-
             }
         }
     }
-
-    //    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//
-//        val filler = R.drawable.placeholder_image
-//
-//        val toolbar = binding.toolbar
-//        toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
-//
-//        val retryButton = binding.retryButton
-//        retryButton.setOnClickListener { viewModel.retry() }
-//
-//        lifecycleScope.launch {
-//            viewModel.status.collect { state ->
-//                binding.mainCardView.isInvisible = state !is CharacterDetailsLoadingState.Success
-//                binding.loader.isInvisible = state !is CharacterDetailsLoadingState.Loading
-//                toolbar.isInvisible = state !is CharacterDetailsLoadingState.Success
-//                retryButton.isInvisible = state !is CharacterDetailsLoadingState.Error
-//
-//                if (state is CharacterDetailsLoadingState.Success) {
-//                    binding.characterPhoto.load(state.data.imageUrl) {
-//                        placeholder(filler)
-//                        error(filler)
-//                        fallback(filler)
-//                    }
-//                    binding.characterName.text = String.format(
-//                        getString(R.string.name_template), state.data.name
-//                    )
-//                    binding.characterLocation.text = String.format(
-//                        getString(R.string.location_template), state.data.location
-//                    )
-//                    binding.characterSpecies.text = String.format(
-//                        getString(R.string.species_template), state.data.species
-//                    )
-//                    binding.characterStatus.text = String.format(
-//                        getString(R.string.status_template), state.data.status
-//                    )
-//                    toEpisodesScreen(state)
-//                }
-//            }
-//        }
-//    }
-
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Preview
 @Composable
-fun foo() {
-    Box(
+fun Container(content: @Composable () -> Unit) {
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .background(MyBlue),
-        contentAlignment = Alignment.Center,
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-//        TopAppBar(
-//            modifier = Modifier.padding(horizontal = 12.dp),
-//            title = {
-//                Text(
-//                    modifier = Modifier.padding(horizontal = 24.dp),
-//                    text = "Character's Detailed Info",
-//                    fontWeight = FontWeight.Bold,
-//                    fontFamily = FontFamily.Serif,
-//                    fontSize = 20.sp,
-//                    textAlign = TextAlign.Center
-//                )
-//            },
-//            navigationIcon = {
-//                Icon(
-//                    imageVector = Icons.AutoMirrored.Default.ArrowBack,
-//                    contentDescription = "Arrow Back"
-//                )
-//            },
-//            colors = TopAppBarDefaults.topAppBarColors(MyBlue)
-//        )
+        content()
+    }
+}
 
+
+@Preview
+@Composable
+fun JustForPreview() {
+    Container {
+        CircularProgressIndicator(
+            modifier = Modifier.size(72.dp),
+            color = MyLightBlue,
+            strokeWidth = 6.dp
+        )
     }
 }

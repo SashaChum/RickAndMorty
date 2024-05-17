@@ -93,9 +93,8 @@ class CharacterDetailsFragment : Fragment() {
                 ) {
                     Log.d("my compose", "внутри основного контейнера")
 
-                    when (state.value) {
+                    when (val curState = state.value) {
                         is CharacterDetailsLoadingState.Success -> {
-                            val stateValue = state.value as CharacterDetailsLoadingState.Success
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -148,7 +147,7 @@ class CharacterDetailsFragment : Fragment() {
                                         )
                                         .weight(1f),
                                     model = ImageRequest.Builder(LocalContext.current)
-                                        .data(stateValue.data.imageUrl)
+                                        .data(curState.data.imageUrl)
                                         .crossfade(true)
                                         .build(),
                                     placeholder = placeholderPainter,
@@ -163,7 +162,7 @@ class CharacterDetailsFragment : Fragment() {
                                         .padding(10.dp),
                                     text = String.format(
                                         getString(R.string.name_template),
-                                        stateValue.data.name
+                                        curState.data.name
                                     ),
                                     fontFamily = FontFamily.Serif,
                                     fontSize = 18.sp,
@@ -177,7 +176,7 @@ class CharacterDetailsFragment : Fragment() {
                                         .padding(10.dp),
                                     text = String.format(
                                         getString(R.string.location_template),
-                                        stateValue.data.location
+                                        curState.data.location
                                     ),
                                     fontFamily = FontFamily.Serif,
                                     fontSize = 18.sp,
@@ -191,7 +190,7 @@ class CharacterDetailsFragment : Fragment() {
                                         .padding(10.dp),
                                     text = String.format(
                                         getString(R.string.species_template),
-                                        stateValue.data.species
+                                        curState.data.species
                                     ),
                                     fontFamily = FontFamily.Serif,
                                     fontSize = 18.sp,
@@ -205,7 +204,7 @@ class CharacterDetailsFragment : Fragment() {
                                         .padding(10.dp),
                                     text = String.format(
                                         getString(R.string.status_template),
-                                        stateValue.data.status
+                                        curState.data.status
                                     ),
                                     fontFamily = FontFamily.Serif,
                                     fontSize = 18.sp,
@@ -226,7 +225,7 @@ class CharacterDetailsFragment : Fragment() {
                                         findNavController().navigate(
                                             CharacterDetailsFragmentDirections
                                                 .actionCharacterDetailsFragmentToEpisodeFragment(
-                                                    stateValue.data.episodes.toIntArray()
+                                                    curState.data.episodes.toIntArray()
                                                 )
                                         )
                                     },

@@ -124,7 +124,6 @@ class CharacterDetailsFragment : Fragment() {
                             Column(
                                 modifier = Modifier
                                     .fillMaxSize()
-                                    .background(MyBlue)
                                     .padding(
                                         start = 14.dp,
                                         end = 14.dp,

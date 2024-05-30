@@ -1,7 +1,9 @@
 package com.chumikov.rickandmorty.presentation
 
+import androidx.compose.runtime.Immutable
 import com.chumikov.rickandmorty.domain.Episode
 
+@Immutable
 sealed interface EpisodesLoadingState {
 
     data object Loading: EpisodesLoadingState

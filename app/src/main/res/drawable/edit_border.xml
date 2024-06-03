@@ -3,7 +3,7 @@
 
     <stroke
         android:width="8dp"
-        android:color="@color/material_dynamic_primary60" />
+        android:color="@color/my_blue" />
 
     <padding
         android:bottom="4dp"

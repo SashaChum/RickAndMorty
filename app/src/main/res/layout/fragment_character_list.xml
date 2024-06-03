@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/material_dynamic_primary60">
+    android:background="@color/my_blue">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
@@ -13,6 +13,7 @@
         app:title="List Of Characters"
         app:titleCentered="true"
         app:titleTextAppearance="@style/my_toolbar_style"
+        app:titleTextColor="@color/black"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -33,7 +34,7 @@
         android:id="@+id/loader"
         android:layout_width="84dp"
         android:layout_height="84dp"
-        android:indeterminateTint="@color/material_dynamic_primary90"
+        android:indeterminateTint="@color/my_light_blue"
         android:elevation="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

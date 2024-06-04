@@ -23,17 +23,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:indeterminateTint="@color/material_dynamic_primary90" />
+        android:indeterminateTint="@color/my_light_blue" />
 
     <Button
         android:id="@+id/retry_button"
         android:layout_width="100dp"
-        android:backgroundTint="#303F9F"
+        android:backgroundTint="@color/my_dark_blue"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:fontFamily="serif"
         android:text="@string/retry"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="@color/white"/>
 
 </LinearLayout>

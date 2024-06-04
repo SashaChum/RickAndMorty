@@ -97,8 +97,7 @@ class CharacterDetailsFragment : Fragment() {
                                     .padding(
                                         start = 14.dp,
                                         end = 14.dp,
-                                        top = 10.dp,
-                                        bottom = 60.dp
+                                        bottom = 20.dp
                                     )
                                     .clip(RoundedCornerShape(12.dp))
                                     .background(MyLightBlue)
@@ -108,7 +107,7 @@ class CharacterDetailsFragment : Fragment() {
                                 AsyncImage(
                                     modifier = Modifier
                                         .fillMaxSize()
-                                        .padding(10.dp)
+                                        .padding(16.dp)
                                         .clip(RoundedCornerShape(12.dp))
                                         .border(
                                             BorderStroke(3.dp, MyBlue),
@@ -205,6 +204,8 @@ class CharacterDetailsFragment : Fragment() {
                                         fontFamily = FontFamily.Serif,
                                         fontSize = 18.sp,
                                         fontWeight = FontWeight.Bold,
+                                        textAlign = TextAlign.Center
+
                                     )
                                 }
                             }
@@ -212,9 +213,9 @@ class CharacterDetailsFragment : Fragment() {
 
                         is CharacterDetailsLoadingState.Loading -> {
                             CircularProgressIndicator(
-                                modifier = Modifier.size(72.dp),
+                                modifier = Modifier.size(68.dp),
                                 color = MyLightBlue,
-                                strokeWidth = 6.dp
+                                strokeWidth = 7.dp
                             )
                         }
 

@@ -125,9 +125,9 @@ class EpisodesFragment : Fragment() {
 
                         is EpisodesLoadingState.Loading -> {
                             CircularProgressIndicator(
-                                modifier = Modifier.size(72.dp),
+                                modifier = Modifier.size(68.dp),
                                 color = MyLightBlue,
-                                strokeWidth = 6.dp
+                                strokeWidth = 7.dp
                             )
                         }
 

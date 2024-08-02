@@ -2,7 +2,6 @@ package com.chumikov.rickandmorty.presentation
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -70,9 +69,6 @@ class CharacterDetailsFragment : Fragment() {
     ): View {
         return ComposeView(requireContext()).apply {
             setContent {
-
-                Log.d("Second Screen", "внутри setContent")
-
                 val state = viewModel.status.collectAsState()
 
                 Column(
@@ -82,8 +78,6 @@ class CharacterDetailsFragment : Fragment() {
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Log.d("Second Screen", "внутри основного контейнера")
-
                     when (val curState = state.value) {
                         is CharacterDetailsLoadingState.Success -> {
 

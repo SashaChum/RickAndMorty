@@ -2,7 +2,6 @@ package com.chumikov.rickandmorty.presentation
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -69,9 +68,6 @@ class EpisodesFragment : Fragment() {
     ): View {
         return ComposeView(requireContext()).apply {
             setContent {
-
-                Log.d("Third Screen", "внутри setContent")
-
                 val state = viewModel.status.collectAsState()
 
                 Column(
@@ -81,9 +77,6 @@ class EpisodesFragment : Fragment() {
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-
-                    Log.d("Third Screen", "внутри основного контейнера")
-
                     when (val curState = state.value) {
                         is EpisodesLoadingState.Success -> {
 

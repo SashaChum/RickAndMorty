@@ -1,6 +1,5 @@
 package com.chumikov.rickandmorty.presentation
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
@@ -16,13 +15,4 @@ class CharacterListViewModel @Inject constructor(
     val characters = Pager(PagingConfig(pageSize = 20)) { characterPagingDataSource }
         .flow
         .cachedIn(viewModelScope)
-
-    init {
-        Log.d("My Inspection", "CharacterListViewModel init")
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        Log.d("My Inspection", "CharacterListViewModel onCleared")
-    }
 }

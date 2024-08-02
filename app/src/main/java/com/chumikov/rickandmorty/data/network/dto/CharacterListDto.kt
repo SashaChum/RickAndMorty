@@ -1,4 +1,4 @@
-package com.chumikov.rickandmorty.data.network.model
+package com.chumikov.rickandmorty.data.network.dto
 
 import com.google.gson.annotations.SerializedName
 

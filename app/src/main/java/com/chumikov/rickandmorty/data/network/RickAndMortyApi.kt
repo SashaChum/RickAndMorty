@@ -1,9 +1,9 @@
 package com.chumikov.rickandmorty.data.network
 
 import androidx.annotation.IntRange
-import com.chumikov.rickandmorty.data.network.model.CharacterDetailsDto
-import com.chumikov.rickandmorty.data.network.model.CharacterListDto
-import com.chumikov.rickandmorty.data.network.model.EpisodeDto
+import com.chumikov.rickandmorty.data.network.dto.CharacterDetailsDto
+import com.chumikov.rickandmorty.data.network.dto.CharacterListDto
+import com.chumikov.rickandmorty.data.network.dto.EpisodeDto
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

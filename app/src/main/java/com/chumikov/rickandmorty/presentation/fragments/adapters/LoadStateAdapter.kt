@@ -1,4 +1,4 @@
-package com.chumikov.rickandmorty.presentation.adapters
+package com.chumikov.rickandmorty.presentation.fragments.adapters
 
 import android.view.ViewGroup
 import androidx.paging.LoadState

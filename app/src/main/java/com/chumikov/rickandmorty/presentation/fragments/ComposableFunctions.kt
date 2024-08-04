@@ -1,4 +1,4 @@
-package com.chumikov.rickandmorty.presentation
+package com.chumikov.rickandmorty.presentation.fragments
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer

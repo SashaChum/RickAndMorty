@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/characterListFragment"
-        android:name="com.chumikov.rickandmorty.presentation.CharacterListFragment"
+        android:name="com.chumikov.rickandmorty.presentation.fragments.CharacterListFragment"
         android:label="CharacterListFragment" >
         <action
             android:id="@+id/action_characterListFragment_to_characterDetailsFragment"
@@ -14,7 +14,7 @@
     </fragment>
     <fragment
         android:id="@+id/characterDetailsFragment"
-        android:name="com.chumikov.rickandmorty.presentation.CharacterDetailsFragment"
+        android:name="com.chumikov.rickandmorty.presentation.fragments.CharacterDetailsFragment"
         android:label="CharacterDetailsFragment" >
         <argument
             android:name="characterId"
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/episodeFragment"
-        android:name="com.chumikov.rickandmorty.presentation.EpisodesFragment"
+        android:name="com.chumikov.rickandmorty.presentation.fragments.EpisodesFragment"
         android:label="EpisodeFragment" >
         <argument
             android:name="episodesId"

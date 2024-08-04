@@ -1,48 +1,36 @@
-package com.chumikov.rickandmorty.presentation
+package com.chumikov.rickandmorty.presentation.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.chumikov.rickandmorty.databinding.FragmentCharacterListBinding
-import com.chumikov.rickandmorty.presentation.adapters.CharacterPageAdapter
-import com.chumikov.rickandmorty.presentation.adapters.LoadStateAdapter
+import com.chumikov.rickandmorty.presentation.fragments.adapters.CharacterPageAdapter
+import com.chumikov.rickandmorty.presentation.fragments.adapters.LoadStateAdapter
+import com.chumikov.rickandmorty.presentation.fragments.view_models.CharacterListViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import javax.inject.Inject
-import javax.inject.Provider
 
+
+@AndroidEntryPoint
 class CharacterListFragment: Fragment() {
 
-    @Inject
-    lateinit var viewModelProvider: Provider<CharacterListViewModel>
-
-    private val viewModel by getViewModel {
-        viewModelProvider.get()
-    }
-
-    private val component by lazy {
-        (requireActivity().application as MyApplication).component
-    }
+    private val viewModel by viewModels<CharacterListViewModel>()
 
     private var _binding: FragmentCharacterListBinding? = null
 
     private val binding: FragmentCharacterListBinding
         get() = _binding ?: throw RuntimeException("FragmentCharacterListBinding is null")
 
-
-    override fun onAttach(context: Context) {
-        component.inject(this)
-        super.onAttach(context)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

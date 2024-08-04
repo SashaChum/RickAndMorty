@@ -1,4 +1,4 @@
-package com.chumikov.rickandmorty.presentation
+package com.chumikov.rickandmorty.presentation.fragments
 
 import androidx.compose.runtime.Immutable
 import com.chumikov.rickandmorty.domain.Episode

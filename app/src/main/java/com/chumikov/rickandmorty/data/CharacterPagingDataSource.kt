@@ -6,7 +6,9 @@ import com.chumikov.rickandmorty.data.mappers.CharacterMapper
 import com.chumikov.rickandmorty.data.network.RickAndMortyApi
 import com.chumikov.rickandmorty.domain.Character
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class CharacterPagingDataSource @Inject constructor(
     private val api: RickAndMortyApi,
     private val mapper: CharacterMapper

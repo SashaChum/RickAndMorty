@@ -63,8 +63,8 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
 
     // Dagger
-    implementation("com.google.dagger:dagger:2.48")
-    kapt("com.google.dagger:dagger-compiler:2.48")
+//    implementation("com.google.dagger:dagger:2.48")
+//    kapt("com.google.dagger:dagger-compiler:2.48")
 
     // Hilt
     implementation("com.google.dagger:hilt-android:2.51")

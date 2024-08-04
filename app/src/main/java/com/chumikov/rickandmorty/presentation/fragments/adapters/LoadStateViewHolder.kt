@@ -1,4 +1,4 @@
-package com.chumikov.rickandmorty.presentation.adapters
+package com.chumikov.rickandmorty.presentation.fragments.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

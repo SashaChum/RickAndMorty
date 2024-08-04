@@ -1,6 +1,5 @@
-package com.chumikov.rickandmorty.presentation
+package com.chumikov.rickandmorty.presentation.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -34,35 +33,26 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.chumikov.rickandmorty.R
+import com.chumikov.rickandmorty.presentation.fragments.view_models.CharacterDetailsViewModel
 import com.chumikov.rickandmorty.ui_theme.MyBlue
 import com.chumikov.rickandmorty.ui_theme.MyDarkBlue
 import com.chumikov.rickandmorty.ui_theme.MyLightBlue
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class CharacterDetailsFragment : Fragment() {
 
     private val args by navArgs<CharacterDetailsFragmentArgs>()
 
-    @Inject
-    lateinit var viewModelFactory: CharacterDetailsViewModel.Factory
+    private val viewModel by viewModels<CharacterDetailsViewModel>()
 
-    private val viewModel by getViewModel<CharacterDetailsViewModel> {
-        viewModelFactory.get(args.characterId)
-    }
-
-    private val component by lazy {
-        (requireActivity().application as MyApplication).component
-    }
-
-    override fun onAttach(context: Context) {
-        component.inject(this)
-        super.onAttach(context)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?

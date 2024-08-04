@@ -1,19 +1,26 @@
-package com.chumikov.rickandmorty.presentation
+package com.chumikov.rickandmorty.presentation.fragments.view_models
 
+import android.util.Log
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chumikov.rickandmorty.domain.GetCharacterEpisodesUseCase
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
+import com.chumikov.rickandmorty.presentation.fragments.EpisodesFragmentArgs
+import com.chumikov.rickandmorty.presentation.fragments.EpisodesLoadingState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class EpisodesViewModel @AssistedInject constructor(
+
+@HiltViewModel
+class EpisodesViewModel @Inject constructor(
     private val getCharacterEpisodesUseCase: GetCharacterEpisodesUseCase,
-    @Assisted private val episodes: List<Int>
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
+
+    private val args = EpisodesFragmentArgs.fromSavedStateHandle(savedStateHandle)
 
     private val _status =
         MutableStateFlow<EpisodesLoadingState>(EpisodesLoadingState.Loading)
@@ -21,12 +28,13 @@ class EpisodesViewModel @AssistedInject constructor(
 
     init {
         load()
+        Log.d("inspection", "EpisodesViewModel $this")
     }
 
     private fun load() {
         viewModelScope.launch {
             try {
-                val episodeList = getCharacterEpisodesUseCase(episodes)
+                val episodeList = getCharacterEpisodesUseCase(args.episodesId.toList())
                 _status.value = EpisodesLoadingState.Success(episodeList)
             } catch (e: Exception) {
                 _status.value = EpisodesLoadingState.Error
@@ -37,10 +45,5 @@ class EpisodesViewModel @AssistedInject constructor(
     fun retry() {
         _status.value = EpisodesLoadingState.Loading
         load()
-    }
-
-    @AssistedFactory
-    interface Factory {
-        fun get(episodes: List<Int>): EpisodesViewModel
     }
 }

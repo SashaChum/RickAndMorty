@@ -1,4 +1,4 @@
-package com.chumikov.rickandmorty.presentation.adapters
+package com.chumikov.rickandmorty.presentation.fragments.adapters
 
 import androidx.recyclerview.widget.DiffUtil
 import com.chumikov.rickandmorty.domain.Character
